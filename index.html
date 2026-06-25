@@ -76,7 +76,7 @@ nav.solid{background:rgba(8,11,18,.82);border-bottom-color:var(--line)}
 /* ===== HERO — scroll-scrub video ===== */
 .hero-stage{position:relative;height:220vh}
 .hero-sticky{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;background:var(--bg2)}
-.hero-vid,.hero-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.hero-vid,.hero-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 32%;z-index:0}
 .hero-poster{z-index:0}
 .hero-vid{z-index:1}
 .hero-veil{position:absolute;inset:0;z-index:2;background:
@@ -251,7 +251,6 @@ footer{border-top:1px solid var(--line);padding:34px 0 56px;color:var(--dim);pos
   <div class="hero-sticky">
     <img class="hero-poster" src="assets/media/hero-poster.jpg" alt="" aria-hidden="true">
     <video class="hero-vid" id="herovid" src="assets/media/hero-scroll.mp4" muted playsinline preload="auto" poster="assets/media/hero-poster.jpg"></video>
-    <img class="hero-raven" id="raven" src="assets/media/raven.png" alt="CROWBAH — кибер-ворон, тотем бренда">
     <div class="hero-veil"></div>
     <div class="hero-content" id="herocontent">
       <span class="pill"><span class="dot"></span> AI-продакшн студия полного цикла</span>
@@ -314,7 +313,6 @@ footer{border-top:1px solid var(--line);padding:34px 0 56px;color:var(--dim);pos
         <p>Это <b>второе альтер-эго</b>: тёмный экспериментальный гибрид&nbsp;— darkwave, trip-hop, post-metal. Есть совместные кадры, есть ролик, где Mira <b>поёт свои треки</b>. Люди спорят, что она настоящая. В&nbsp;этом и&nbsp;смысл.</p>
         <div class="story-links">
           <a class="btn btn-pri" href="https://t.me/miravale_mv" target="_blank" rel="noopener">Канал Mira&nbsp;Vale <span class="ar">→</span></a>
-          <a class="btn btn-gh" href="https://music.yandex.ru/album/41451981" target="_blank" rel="noopener">Слушать «Mirror»</a>
         </div>
       </div>
     </div>
@@ -337,15 +335,12 @@ footer{border-top:1px solid var(--line);padding:34px 0 56px;color:var(--dim);pos
         <div class="thumb"><img src="assets/media/factory-ui.png" alt="Интерфейс контент-завода" loading="lazy"></div>
         <span class="lbl">флагман · продукт под ключ</span>
         <h3>Контент-завод <span class="x">под ключ</span></h3>
-        <p>Автономная инфраструктура: кидаешь исходник&nbsp;— pipeline сам генерит обложки и&nbsp;описания, мастерит звук и&nbsp;видео, публикует по&nbsp;расписанию в&nbsp;TG / Boosty / Bandcamp / YouTube и&nbsp;ведёт архив с&nbsp;историей. Один раз настроил&nbsp;— работает без&nbsp;тебя.</p>
+        <p>Автономная инфраструктура: кидаешь исходник&nbsp;— pipeline сам генерит обложки и&nbsp;описания, мастерит звук и&nbsp;видео, публикует по&nbsp;расписанию в&nbsp;Telegram, TikTok и&nbsp;твои каналы и&nbsp;ведёт архив с&nbsp;историей. Один раз настроил&nbsp;— работает без&nbsp;тебя.</p>
         <div class="chips">
           <span class="chip on">START — 100к</span>
           <span class="chip on">STUDIO — 200к ⭐</span>
           <span class="chip on">PRO — 300к</span>
           <span class="chip">+ поддержка 30–80к/мес</span>
-        </div>
-        <div class="priceline">
-          <b>6–8&nbsp;ч <span class="x">→</span> 25&nbsp;мин</b><span>на полный релиз · 12+&nbsp;часов/нед экономии</span>
         </div>
       </div>
 
@@ -395,14 +390,6 @@ footer{border-top:1px solid var(--line);padding:34px 0 56px;color:var(--dim);pos
         <span class="lbl">▣ разработка</span>
         <h3>Приложения</h3>
         <p>Линейка инструментов и&nbsp;утилит&nbsp;— от&nbsp;идеи до&nbsp;рабочего продукта. Дев-логи и&nbsp;апдейты&nbsp;— тоже контент.</p>
-      </div>
-
-      <!-- Клип / визуал-истории -->
-      <div class="cell c2 reveal"><div class="glow"></div>
-        <div class="thumb"><img src="assets/media/drama-scene-web.jpg" alt="Кадр из визуальной истории" loading="lazy"></div>
-        <span class="lbl">▶ кино / клип</span>
-        <h3>Клип «Noid» + визуал-истории</h3>
-        <p>Снятый ролик для&nbsp;независимой группы и&nbsp;серия кино-кадров с&nbsp;глитч-эстетикой и&nbsp;нарративом.</p>
       </div>
 
     </div>
@@ -485,14 +472,13 @@ footer{border-top:1px solid var(--line);padding:34px 0 56px;color:var(--dim);pos
       <h2>Собрать тебе <span class="x">такую же</span> систему?</h2>
       <p>Напиши&nbsp;— разберём нишу, тон и&nbsp;задачи, отвечу что реально сделать и&nbsp;за&nbsp;сколько. Без&nbsp;воды и&nbsp;давления.</p>
       <div class="cta-actions">
-        <a class="btn btn-pri" href="https://t.me/bah_dgtl" target="_blank" rel="noopener">Написать в&nbsp;Telegram <span class="ar">→</span></a>
+        <a class="btn btn-pri" href="https://t.me/sergeybah" target="_blank" rel="noopener">Написать в&nbsp;Telegram <span class="ar">→</span></a>
         <a class="btn btn-gh" href="mailto:bahead@mail.ru">bahead@mail.ru</a>
       </div>
       <div class="engine">
-        <a href="https://t.me/miravale_mv" target="_blank" rel="noopener"><span class="d"></span> Mira Vale</a>
-        <a href="https://music.yandex.ru/album/41451981" target="_blank" rel="noopener"><span class="d"></span> Mirror — Я.Музыка</a>
-        <a href="https://t.me/bah_dgtl" target="_blank" rel="noopener"><span class="d"></span> @bah_dgtl</a>
+        <a href="https://t.me/sergeybah" target="_blank" rel="noopener"><span class="d"></span> Telegram</a>
         <a href="mailto:bahead@mail.ru"><span class="d"></span> почта</a>
+        <a href="https://t.me/miravale_mv" target="_blank" rel="noopener"><span class="d"></span> Mira Vale</a>
       </div>
     </div>
   </div>
@@ -501,7 +487,7 @@ footer{border-top:1px solid var(--line);padding:34px 0 56px;color:var(--dim);pos
 <footer>
   <div class="wrap foot-in">
     <span>© 2026 <b style="color:var(--text)">CROWBAH</b> — AI-продакшн студия полного цикла</span>
-    <span><a href="https://t.me/bah_dgtl" target="_blank" rel="noopener">Telegram</a> · <a href="mailto:bahead@mail.ru">bahead@mail.ru</a></span>
+    <span><a href="https://t.me/sergeybah" target="_blank" rel="noopener">Telegram</a> · <a href="mailto:bahead@mail.ru">bahead@mail.ru</a></span>
     <span>ИП · нейросети под задачу</span>
   </div>
 </footer>
