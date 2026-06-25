@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>CROWBAH — Вход в нейросети с нуля</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#06090f; --bg2:#0a0e17; --panel:#0d1220; --panel2:#121829;
+  --line:rgba(255,255,255,.09); --line2:rgba(255,255,255,.16);
+  --text:#eef2f8; --muted:#9aa6bd; --dim:#6b778f;
+  --cyan:#34d3ee; --cyan2:#5fe0f5; --indigo:#5b78ff; --magenta:#ff3b6b; --green:#3ddc97;
+  --fd:'Geologica',sans-serif; --fm:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--text);font-family:var(--fd);font-weight:400;line-height:1.55;-webkit-font-smoothing:antialiased}
+@page{size:A4;margin:0}
+.page{position:relative;width:210mm;min-height:297mm;padding:16mm 15mm;background:var(--bg);overflow:hidden;break-after:page;page-break-after:always}
+.page:last-child{break-after:auto;page-break-after:auto}
+.page::after{content:"";position:absolute;left:15mm;right:15mm;bottom:9mm;height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent)}
+.foot{position:absolute;left:15mm;right:15mm;bottom:5mm;display:flex;justify-content:space-between;font-family:var(--fm);font-size:7.5pt;letter-spacing:.12em;color:var(--dim);text-transform:uppercase}
+.foot b{color:var(--cyan);font-weight:500}
+h1,h2,h3,h4{font-family:var(--fd);letter-spacing:-.02em;line-height:1.05;text-wrap:balance}
+b,strong{color:#fff;font-weight:600}
+p{margin:0 0 9pt;text-wrap:pretty}
+.kick{font-family:var(--fm);font-size:8pt;letter-spacing:.24em;text-transform:uppercase;color:var(--cyan);display:flex;align-items:center;gap:8px}
+.kick::before{content:"";width:22px;height:1px;background:var(--cyan)}
+
+/* cover */
+.cover{display:flex;flex-direction:column;justify-content:center;background:radial-gradient(120% 80% at 70% 10%,rgba(52,211,238,.10),transparent 55%),var(--bg)}
+.cover .net{position:absolute;inset:0;opacity:.5}
+.cover .brand{font-family:var(--fd);font-weight:900;font-size:15pt;letter-spacing:.04em;position:relative}
+.cover .brand .x{color:var(--cyan)}
+.cover .tag{font-family:var(--fm);font-size:8pt;letter-spacing:.2em;color:var(--dim);text-transform:uppercase;margin-top:6pt}
+.cover h1{font-weight:900;font-size:40pt;line-height:.98;margin:22pt 0 0;max-width:16ch;position:relative}
+.cover h1 .x{color:var(--cyan)}
+.cover .sub{font-size:12.5pt;color:#cdd6e4;max-width:46ch;margin-top:16pt;line-height:1.5;position:relative}
+.cover .who{font-size:11pt;color:var(--muted);max-width:50ch;margin-top:14pt;position:relative;border-left:2px solid var(--cyan);padding-left:12pt}
+.cover .meta{position:relative;margin-top:34pt;display:flex;gap:26pt;font-family:var(--fm);font-size:8.5pt;color:var(--muted)}
+.cover .meta b{color:var(--cyan);font-weight:500}
+
+/* section head */
+.shead{display:flex;align-items:flex-start;gap:16pt;margin-bottom:14pt}
+.shead .no{font-family:var(--fd);font-weight:900;font-size:38pt;color:var(--cyan);line-height:.8;text-shadow:0 0 30px rgba(52,211,238,.35)}
+.shead .ht{flex:1}
+.shead h2{font-weight:800;font-size:20pt;margin-top:6pt;line-height:1.08}
+.body{font-size:10.5pt;color:#d2d9e6}
+.body p{margin:0 0 8pt}
+.body h4{font-weight:700;font-size:11pt;color:#fff;margin:12pt 0 6pt}
+.body ul,.body ol{margin:4pt 0 10pt;padding-left:16pt}
+.body li{margin:0 0 4pt;font-size:10.3pt;color:#d2d9e6}
+.body li::marker{color:var(--cyan)}
+.body code{font-family:var(--fm);font-size:9pt;background:var(--panel2);border:1px solid var(--line);border-radius:4px;padding:1px 5px;color:var(--cyan2)}
+.body hr{border:0;height:1px;background:var(--line);margin:11pt 0}
+.body table{width:100%;border-collapse:collapse;margin:8pt 0 11pt;font-size:9.3pt}
+.body th{font-family:var(--fm);font-size:7.6pt;letter-spacing:.06em;text-transform:uppercase;color:var(--cyan);text-align:left;padding:6pt 8pt;border-bottom:1px solid var(--line2)}
+.body td{padding:6pt 8pt;border-bottom:1px solid var(--line);color:#cdd5e3;vertical-align:top}
+.body tr td:first-child{color:#fff;font-weight:500}
+
+/* infographic shell */
+.info{margin:14pt 0 2pt;border:1px solid var(--line);border-radius:12px;background:linear-gradient(180deg,var(--panel),var(--bg2));padding:16pt;position:relative;overflow:hidden}
+.info .cap{font-family:var(--fm);font-size:7.5pt;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:12pt;display:block}
+.row{display:flex;align-items:center;gap:12pt}
+.flow-ba{display:flex;align-items:center;gap:14pt;flex-wrap:wrap}
+.tok{flex:1;min-width:120pt;font-family:var(--fm);font-size:9pt;color:#cdd5e3;background:var(--panel2);border:1px solid var(--line2);border-radius:8px;padding:12pt}
+.tok .q{color:var(--cyan2)}
+.arw{font-size:18pt;color:var(--cyan);font-weight:700}
+.frame{flex:1;min-width:120pt;height:64pt;border:1px solid var(--cyan);border-radius:8px;background:
+  repeating-linear-gradient(45deg,rgba(52,211,238,.05) 0 8px,transparent 8px 16px);display:flex;align-items:center;justify-content:center;color:var(--cyan);font-family:var(--fm);font-size:8pt;letter-spacing:.1em}
+.icons4{display:flex;gap:10pt;margin-top:12pt}
+.ic{flex:1;border:1px solid var(--line);border-radius:8px;padding:10pt;text-align:center;font-family:var(--fm);font-size:7.6pt;color:var(--muted);letter-spacing:.04em}
+.ic .g{font-size:15pt;color:var(--cyan);display:block;margin-bottom:5pt}
+
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:9pt}
+.tc{border:1px solid var(--line);border-radius:10px;padding:11pt;background:var(--panel2);position:relative}
+.tc.hot{border-color:var(--cyan);box-shadow:0 0 0 1px rgba(52,211,238,.4),0 14px 30px -18px rgba(52,211,238,.5)}
+.tc .nm{font-weight:700;font-size:9.5pt;color:#fff}
+.tc .bd{font-family:var(--fm);font-size:7pt;color:var(--muted);margin-top:7pt;line-height:1.5}
+.tc .badge{position:absolute;top:-8pt;left:10pt;font-family:var(--fm);font-size:6.6pt;letter-spacing:.08em;background:var(--cyan);color:#04121a;border-radius:6px;padding:2pt 6pt;text-transform:uppercase;font-weight:700}
+
+.ladder{display:flex;align-items:flex-end;gap:8pt;margin-top:4pt}
+.step{flex:1;border:1px solid var(--line);border-radius:8px 8px 0 0;background:linear-gradient(180deg,var(--panel2),var(--bg2));padding:10pt 8pt;border-bottom:2px solid var(--cyan)}
+.step:nth-child(1){height:74pt}.step:nth-child(2){height:96pt}.step:nth-child(3){height:120pt}.step:nth-child(4){height:146pt}
+.step .nm{font-weight:700;font-size:8.6pt;color:#fff}
+.step .meta{font-family:var(--fm);font-size:6.8pt;color:var(--muted);margin-top:5pt;line-height:1.5}
+.step .vpn{font-family:var(--fm);font-size:6.6pt;margin-top:6pt;display:inline-block;border-radius:5px;padding:1pt 5pt}
+.vpn.no{color:var(--green);border:1px solid rgba(61,220,151,.4)}
+.vpn.yes{color:var(--magenta);border:1px solid rgba(255,59,107,.4)}
+
+.cells5{display:flex;gap:6pt}
+.cell5{flex:1;border-radius:8px;padding:9pt 7pt;text-align:center;border:1px solid var(--line2)}
+.cell5 .lb{font-family:var(--fm);font-size:6.6pt;letter-spacing:.06em;text-transform:uppercase;color:var(--dim)}
+.cell5 .vv{font-weight:600;font-size:8.4pt;color:#fff;margin-top:4pt;line-height:1.2}
+.cell5.c1{border-color:rgba(52,211,238,.5)}.cell5.c1 .lb{color:var(--cyan)}
+.lights{display:flex;gap:14pt;margin-top:11pt;justify-content:center}
+.light{text-align:center;font-family:var(--fm);font-size:7pt;color:var(--muted)}
+.light .dot{width:30pt;height:30pt;border-radius:50%;margin:0 auto 5pt}
+
+.paths{display:flex;flex-direction:column;gap:9pt}
+.path{display:flex;align-items:center;gap:12pt;border:1px solid var(--line);border-radius:10px;padding:11pt 13pt;background:var(--panel2)}
+.path .n{font-family:var(--fd);font-weight:900;font-size:16pt;width:26pt;flex:none;text-align:center}
+.path .tx{flex:1}
+.path .tt{font-weight:700;font-size:10pt;color:#fff}
+.path .ds{font-family:var(--fm);font-size:7.4pt;color:var(--muted);margin-top:3pt}
+.path .tagr{font-family:var(--fm);font-size:7pt;border-radius:6px;padding:3pt 8pt;white-space:nowrap}
+.p1{border-left:3px solid var(--green)} .p1 .n{color:var(--green)} .p1 .tagr{color:var(--green);border:1px solid rgba(61,220,151,.4)}
+.p2{border-left:3px solid var(--cyan)} .p2 .n{color:var(--cyan)} .p2 .tagr{color:var(--cyan);border:1px solid rgba(52,211,238,.4)}
+.p3{border-left:3px solid var(--magenta)} .p3 .n{color:var(--magenta)} .p3 .tagr{color:var(--magenta);border:1px solid rgba(255,59,107,.4)}
+.stop{margin-top:10pt;border:1px solid rgba(255,59,107,.35);background:rgba(255,59,107,.06);border-radius:8px;padding:9pt 12pt;font-size:9pt;color:#f3c2cd}
+.stop b{color:var(--magenta)}
+
+.funnel{display:flex;flex-direction:column;gap:7pt}
+.fr{border:1px solid var(--line);border-radius:8px;padding:10pt 13pt;background:var(--panel2);display:flex;justify-content:space-between;align-items:center;margin:0 auto;width:100%}
+.fr:nth-child(1){width:100%}.fr:nth-child(2){width:82%}.fr:nth-child(3){width:64%}
+.fr .ft{font-weight:600;font-size:9.4pt;color:#fff}
+.fr .fp{font-family:var(--fm);font-size:8.4pt;color:var(--cyan)}
+.proof{margin-top:11pt;border:1px solid var(--line2);border-radius:8px;padding:10pt 13pt;background:linear-gradient(120deg,rgba(91,120,255,.06),rgba(52,211,238,.05));display:flex;justify-content:space-between;align-items:center}
+.proof .pl{font-size:9pt;color:#cdd5e3}.proof .pl b{color:#fff}
+.proof .pn{font-family:var(--fd);font-weight:900;font-size:14pt;color:var(--cyan);white-space:nowrap}
+
+/* prompts page */
+.pcard{border:1px solid var(--line);border-radius:10px;background:var(--panel);margin:0 0 9pt;overflow:hidden}
+.pcard .ph{display:flex;justify-content:space-between;align-items:center;padding:8pt 12pt;border-bottom:1px solid var(--line);background:var(--panel2)}
+.pcard .pl{font-weight:600;font-size:9.4pt;color:#fff}
+.pcard .copy{font-family:var(--fm);font-size:7pt;letter-spacing:.08em;text-transform:uppercase;color:var(--cyan);border:1px solid rgba(52,211,238,.4);border-radius:5px;padding:2pt 7pt}
+.pcard pre{font-family:var(--fm);font-size:8.2pt;line-height:1.5;color:#dbe6ef;padding:10pt 12pt;white-space:pre-wrap;word-break:break-word}
+.pcard pre.json{color:#cdd5e3}
+.jkey{color:var(--cyan)} .jstr{color:#cfe9c2} .jpunc{color:var(--dim)}
+
+/* offer page */
+.offer{display:flex;flex-direction:column;gap:10pt;margin-top:6pt}
+.orow{border:1px solid var(--line);border-radius:10px;padding:14pt 16pt;background:var(--panel2);display:flex;justify-content:space-between;align-items:flex-start;gap:14pt}
+.orow.hot{border-color:var(--cyan);box-shadow:0 0 0 1px rgba(52,211,238,.35)}
+.orow .ol .ot{font-weight:700;font-size:12pt;color:#fff}
+.orow .ol .od{font-size:9.4pt;color:var(--muted);margin-top:4pt;max-width:60ch}
+.orow .op{font-family:var(--fd);font-weight:900;font-size:20pt;color:var(--cyan);white-space:nowrap}
+.orow .op small{font-size:10pt;color:var(--muted);font-weight:500}
+.contact{margin-top:16pt;border-top:1px solid var(--line);padding-top:14pt;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10pt}
+.contact .who2{font-weight:700;font-size:12pt}.contact .who2 .x{color:var(--cyan)}
+.contact .lk{font-family:var(--fm);font-size:9pt;color:#cdd5e3}
+.contact .lk b{color:var(--cyan)}
+.disc{font-size:8.6pt;color:var(--dim);margin-top:10pt;line-height:1.5}
+</style>
+</head>
+<body>
+<div id="doc"></div>
+<script>
+const G = {
+  title: "Вход в нейросети с нуля",
+  cover_h1: "Вход в нейросети с нуля",
+  subtitle: "Картинки и видео для тех, кто в России и боится всего этого. Пошагово: с какой нейросети начать бесплатно, как оплатить из РФ без танцев с бубном, какие промпты работают.",
+  who: "Без кода, без воды, без «заработай миллион». Для себя — и чтобы научить дочку.",
+  sections: [
+    { number:"01", kicker:"С чего вообще всё это", title:"Что такое нейросеть простыми словами и что ты сделаешь уже сегодня",
+      body:`Нейросеть — это программа, которой ты описываешь словами, что хочешь увидеть, а она это рисует или снимает. Пишешь «рыжая девушка у окна кафе, утренний свет» — получаешь фотографию, которой не существовало. Без фотошопа, без камеры. Только текст и пара минут.
+
+Тебе не нужно понимать про «искусственный интеллект» и «алгоритмы». Нейросеть — это инструмент, как утюг или микроволновка. Чтобы погладить рубашку, ты не разбираешься, как устроен утюг внутри.
+
+**Что ты сможешь делать:**
+
+- **Картинки из головы.** Любая сцена, портрет, предмет, открытка — словами. Бесплатно, за минуту.
+- **Оживлять свои фото.** Загружаешь снимок — нейросеть делает из него короткое видео: человек улыбается, поворачивает голову, моргает.
+- **Посты и визуал для соцсетей.** Аватарки, обложки, картинки под текст, карточки товара для маркетплейса.
+- **Поток контента.** Когда освоишься — канал, где картинки и ролики выходят пачками в одном стиле, без съёмок и фотографа.
+
+**Это можно осваивать вдвоём с дочкой.** Детям заходит быстрее — для них это игра. Первую картинку делаете вместе за один вечер. Дальше она будет учить тебя.
+
+Главное, что мешает прямо сейчас, — не сложность, а два технических барьера: часть лучших нейросетей не открывается из России и не принимает наши карты. Гайд проведёт мимо обоих. Сначала — то, что работает бесплатно и без обходов. Потом — как платить, когда захочешь больше.`,
+      info:`<span class="cap">было → стало</span>
+      <div class="flow-ba">
+        <div class="tok"><span class="q">«рыжая девушка у окна кафе, утренний свет»</span></div>
+        <div class="arw">→</div>
+        <div class="frame">ГОТОВАЯ КАРТИНКА</div>
+      </div>
+      <div class="icons4">
+        <div class="ic"><span class="g">▦</span>картинки</div>
+        <div class="ic"><span class="g">▷</span>видео из фото</div>
+        <div class="ic"><span class="g">⊞</span>посты в стиле</div>
+        <div class="ic"><span class="g">≣</span>поток контента</div>
+      </div>` },
+
+    { number:"02", kicker:"Картинки", title:"С какой нейросети начать: бесплатно, по-русски, фотореалистично",
+      body:`Не распыляйся. Для старта есть один лучший инструмент, и он бесплатный.
+
+**Google Nano Banana 2** — нейросеть для картинок внутри приложения Gemini от Google. На июнь 2026 это самая удобная точка входа для новичка-визуальщика. Почему именно она:
+
+- **Бесплатно — около 20 картинок в сутки.** Чтобы начать, платить не нужно вообще.
+- **Понимает русский.** Пишешь промпт по-русски — рисует.
+- **Быстро — 4–6 секунд** на картинку, фотореализм, до 4K.
+- **Редактирует твои фото.** Загрузила снимок — «размой фон», «добавь чашку кофе в руку», «убери лишнее». Меняет только то, что просишь.
+- **Держит одно лицо.** Загрузила своё фото — «нарисуй этого же человека в четырёх образах». Лицо остаётся твоим на всех картинках.
+
+**Что нужно для бесплатного старта:** VPN и Google-аккаунт. Это два разных шага — про оба в разделе 05. Для бесплатных картинок в сутки оплата НЕ нужна. Это и делает Nano Banana 2 самым дешёвым входом — ноль рублей.
+
+**Внутри Google две модели — не путай:**
+
+| | Nano Banana 2 | Nano Banana Pro |
+|---|---|---|
+| Скорость | 4–6 сек | 10–20 сек |
+| Когда брать | каждый день | финал, печать |
+| Текст на картинке | средне | лучший |
+| Цена | бесплатно | в подписке |
+
+**Когда пригодятся другие:** **ChatGPT** — если уже платишь за него и хочешь всё в одном окне (подписка $20/мес ≈ 2 000 ₽). **Midjourney** — про художественную красоту уровня портфолио, не про точность (старт $10/мес), бери вторым, когда захочется «вау»-эстетики.
+
+**Вывод:** начни с бесплатного Nano Banana 2. Докупай остальное, только когда упрёшься в его потолок, не раньше.`,
+      info:`<span class="cap">четыре инструмента для картинок</span>
+      <div class="cards">
+        <div class="tc hot"><span class="badge">начни тут</span><div class="nm">Nano Banana 2</div><div class="bd">бесплатно · русский · 4–6 сек · до 4K</div></div>
+        <div class="tc"><div class="nm">Nano Banana Pro</div><div class="bd">финал и печать · лучший текст на картинке</div></div>
+        <div class="tc"><div class="nm">ChatGPT</div><div class="bd">всё в одном окне · ≈2 000 ₽/мес</div></div>
+        <div class="tc"><div class="nm">Midjourney</div><div class="bd">арт-стиль «вау» · от $10/мес</div></div>
+      </div>` },
+
+    { number:"03", kicker:"Видео", title:"Оживить фото и снять ролик: с чего начать без VPN",
+      body:`Видео — следующий шаг после картинок. Приятная новость: лучший стартовый инструмент открывается из России без обходов.
+
+**Kling AI** — китайский видеогенератор. Чем хорош для тебя:
+
+- **Сайт kling.ai открывается из РФ без VPN.** Регистрация по email или через Google за пару минут.
+- **Бесплатный тариф — 66 кредитов в день.** Хватает потренироваться: два-три коротких ролика в день.
+- **Лучшая мимика при оживлении фото.** Загружаешь портрет — человек улыбается, поворачивает голову, в глазах живые эмоции. Это твой главный сценарий.
+- На бесплатном тарифе ролик с водяным знаком и в невысоком разрешении. Чистый результат — на платном.
+
+**Правило для оживления фото (image-to-video):** исходник решает всё. Бери фото с **чётким лицом, ровным светом и простым фоном**. Чем чище исходник — тем предсказуемее результат.
+
+**Полностью бесплатно и без VPN — российские сервисы для первых проб:** **Шедеврум (Яндекс)** — видео из фото без водяного знака, в приложении на телефоне. **Fusion Brain / Kandinsky (Сбер)** — видео из текста и фото на русском, ролики до 5 секунд, формат 9:16 под Reels.
+
+**Что есть дальше — для справки, не для старта:** **Google Veo 3** — самое кинематографичное видео и лучший звук, но доступ из РФ сложный (реальнее через агрегатор). **Seedance** — качество выше Kling и длиннее, но глобальная версия может не пропустить фото с реальным лицом — для своего портрета надёжнее Kling.`,
+      info:`<span class="cap">маршрут освоения видео — от простого к сложному</span>
+      <div class="ladder">
+        <div class="step"><div class="nm">Шедеврум / Fusion Brain</div><div class="meta">0 ₽ · первые пробы</div><span class="vpn no">VPN не нужен</span></div>
+        <div class="step"><div class="nm">Kling</div><div class="meta">мимика, оживление фото</div><span class="vpn no">VPN не нужен</span></div>
+        <div class="step"><div class="nm">Seedance</div><div class="meta">лучше и длиннее</div><span class="vpn yes">VPN / агрегатор</span></div>
+        <div class="step"><div class="nm">Veo 3</div><div class="meta">кино + звук</div><span class="vpn yes">сложный доступ</span></div>
+      </div>` },
+
+    { number:"04", kicker:"Промпты", title:"Как разговаривать с нейросетью: формула из пяти частей",
+      body:`Промпт — это твоё описание словами того, что хочешь увидеть. Главное правило: **что не назовёшь — нейросеть выберет за тебя, и выберет скучно-среднее.** Поэтому описывай по пяти ячейкам в одном предложении.
+
+**Формула из пяти частей:**
+
+1. **Субъект** — кто или что. Конкретно: не «женщина», а «рыжеволосая девушка 25 лет в льняном платье». Всегда **первым** — нейросеть сильнее слушает начало.
+2. **Стиль** — фотография, акварель, 3D-рендер, аниме, масло.
+3. **Свет** — золотой час, мягкий боковой, неон. Самая недооценённая ячейка: именно свет отличает «дёшево» от «дорого».
+4. **Цвет, палитра** — «тёплые земляные тона с одним красным акцентом».
+5. **Композиция, камера** — крупный план, размытый фон, вид сверху.
+
+Длина 20–60 слов — золотая середина.
+
+**Главная привычка новичка — правка по одной детали.** Если «почти, но не то» — НЕ переписывай весь промпт. Меняй одно слово и генерируй снова. Так за две-три правки доходишь до идеала и понимаешь, какое слово на что влияет.
+
+**JSON-промпт — для следующего уровня.** Это тот же промпт, разложенный по полочкам: не одно предложение, а список «поле: значение». Программировать НЕ нужно. Зачем он: меньше отсебятины, можно менять одно поле, повторяемость — та же героиня выглядит одинаково в серии. Бери JSON **не сразу**, а когда нужна серия в одном стиле. Лучше всех его понимают Nano Banana Pro и Flux.
+
+**Image-to-image — даёшь фото как основу.** Вместо описания словами загружаешь готовое фото — нейросеть строит результат поверх. Для видео это спасение от «дрейфа»: с фото-якорем персонаж держится одинаковым весь ролик. Готовые промпты — на следующей странице.`,
+      info:`<span class="cap">анатомия промпта</span>
+      <div class="cells5">
+        <div class="cell5 c1"><div class="lb">субъект</div><div class="vv">кто / что</div></div>
+        <div class="cell5"><div class="lb">стиль</div><div class="vv">фото / арт</div></div>
+        <div class="cell5"><div class="lb">свет</div><div class="vv">золотой час</div></div>
+        <div class="cell5"><div class="lb">цвет</div><div class="vv">палитра</div></div>
+        <div class="cell5"><div class="lb">камера</div><div class="vv">план, фокус</div></div>
+      </div>
+      <div class="lights">
+        <div class="light"><div class="dot" style="background:radial-gradient(circle at 35% 35%,#ffd9a0,#c9883b)"></div>золотой</div>
+        <div class="light"><div class="dot" style="background:radial-gradient(circle at 35% 35%,#9fc6ff,#3a5b9b)"></div>синий час</div>
+        <div class="light"><div class="dot" style="background:radial-gradient(circle at 35% 35%,#e8e8e8,#2a2a2a)"></div>рембрандт</div>
+        <div class="light"><div class="dot" style="background:radial-gradient(circle at 70% 30%,#34d3ee,#0a2730)"></div>контровой</div>
+      </div>` },
+
+    { number:"05", kicker:"Покупка из РФ", title:"Где брать доступ и как платить: три пути без риска",
+      body:`Главная боль не в том, чтобы зайти, а в том, чтобы **заплатить**. Российские карты не проходят почти нигде: платёжная система Stripe режет наши карты по их коду, а не по тому, откуда заходишь. Один VPN тут не спасает. Три рабочих пути от простого к сложному.
+
+**Путь 1 — российский агрегатор** (рублями, без VPN, без иностранной карты). Самый простой и безопасный. Сервис-посредник собрал зарубежные нейросети и принимает рубли — картой, СБП или T-Pay. Один аккаунт — ChatGPT, Midjourney, Kling и другие. **GoGPT** — от 699 ₽/мес, прямая рублёвая цена. **BotHub** — оплата по факту, пополнение от 250 ₽. **SYNTX** — от 890 ₽/мес, есть в реестре Минцифры. **Подвох:** бери тариф с прямой ценой в рублях, а не с «токенами» — можно случайно сжечь баланс.
+
+**Путь 2 — VPN + виртуальная иностранная карта** (для официальных сайтов). Нужны ОБЕ вещи. **VPN:** Nord, Express, Surfshark с OpenAI НЕ работают — их адреса в бане; нужен VPN с обфускацией (150–500 ₽/мес). Включай ДО входа, не прыгай между РФ и зарубежным адресом. **Карта:** виртуальная с иностранным кодом (Aifory Pro, Pyypl), пополняется рублями, наценка ≈10%. Для iPhone: ChatGPT Plus через турецкий App Store ≈1 040 ₽ вместо $20.
+
+**Путь 3 — FunPay** (разово, с риском). Барахолка, где подписки дешевле. Только для разового теста. Если идёшь: только сайт **funpay.com** (не .ru — подделка), через защиту сделки, бери персональную подписку, сразу меняй пароль.`,
+      info:`<span class="cap">три пути оплаты</span>
+      <div class="paths">
+        <div class="path p1"><div class="n">1</div><div class="tx"><div class="tt">Российский агрегатор</div><div class="ds">рубли · без VPN · без иностранной карты · GoGPT от 699 ₽</div></div><div class="tagr">проще всего</div></div>
+        <div class="path p2"><div class="n">2</div><div class="tx"><div class="tt">VPN + виртуальная карта</div><div class="ds">официальные сайты · нужны обе вещи сразу</div></div><div class="tagr">средне</div></div>
+        <div class="path p3"><div class="n">3</div><div class="tx"><div class="tt">FunPay</div><div class="ds">дешевле · только разово · funpay.com через защиту сделки</div></div><div class="tagr">⚠ риск</div></div>
+      </div>
+      <div class="stop"><b>НЕ ходи:</b> Авито и незнакомые Telegram-каналы за картами и аккаунтами. Там половина мошенники, вторая — мошенники с красивым лендингом.</div>` },
+
+    { number:"06", kicker:"Применение", title:"Куда это всё применить: от первой картинки до потока контента",
+      body:`Ты освоила картинки, видео и промпты. Куда это приложить, чтобы был результат, а не папка красивых файлов.
+
+**Гибриды — где сила.** Результат начинается, когда инструменты работают в связке: **картинка → видео** (портрет в Nano Banana → оживила в Kling), **один персонаж — целая серия** (через image-to-image держишь одно лицо — основа узнаваемого блога), **серия в одном стиле** (JSON-промпт даёт повторяемость для карточек товара и постов).
+
+**Реальные сценарии под тебя:** посты и сторис без съёмок, карточки товара для маркетплейса, открытки и аватарки, вечерний проект с дочкой — комикс про вашего персонажа.
+
+**Следующий уровень — поток контента.** Когда картинки и ролики выходят пачками, в едином стиле, почти на автомате. Канал наполняется без фотографа и съёмочного дня. Один человек делает работу студии.
+
+Этим я и занимаюсь профессионально. Моя артистка **MIRA VALE** — целиком сгенерированная личность: внешность, музыка, видео, посты. Живое доказательство, что один человек с нейросетями строит то, на что раньше нужна была команда.
+
+**Куда расти с этим гайдом:** сейчас — первая картинка и видео своими руками (бесплатно); дальше — консультация, где мы вместе на твоём экране делаем то, ради чего ты пришла; когда захочешь поток — соберу под ключ. Гайд — это вход. Дальше веду за руку, сколько нужно.`,
+      info:`<span class="cap">путь дальше</span>
+      <div class="funnel">
+        <div class="fr"><span class="ft">Первая картинка — сама</span><span class="fp">0 ₽</span></div>
+        <div class="fr"><span class="ft">Консультация — ведут за руку</span><span class="fp">1 час</span></div>
+        <div class="fr"><span class="ft">Поток контента под ключ</span><span class="fp">проект</span></div>
+      </div>
+      <div class="proof"><div class="pl"><b>MIRA VALE</b> — сгенерированная артистка: внешность, музыка, видео</div><div class="pn">1 человек = студия</div></div>` }
+  ],
+  prompts: [
+    { label:"Портрет (тёплый, фотореализм)", text:"Рыжеволосая девушка 25 лет в льняном платье цвета охры сидит у окна кафе, фотография, мягкий золотой час сбоку, тёплая палитра охры и кремового с одним бордовым акцентом, крупный план, размытый фон (малая глубина резкости)" },
+    { label:"Предметка (для маркетплейса)", text:"Стеклянный флакон духов на мокром чёрном камне, рекламная фотография, жёсткий контровой свет с бликами, холодная палитра графита и серебра с каплей янтаря, макро, капли воды на стекле, неглубокий фокус" },
+    { label:"Уютный лайфстайл (для блога)", text:"Чашка какао с зефиром на вязаном пледе у окна, идёт снег, мягкая плёночная фотография, рассеянный свет пасмурного дня, палитра пыльно-розового, молочного и серого, вид сверху" },
+    { label:"Фэшн-аниме (для дочки)", text:"Девушка-киберпанк в неоновом плаще под дождём в ночном городе, аниме-иллюстрация, неоновый розово-голубой свет, контраст чёрного и кислотно-розового, средний план в полный рост, отражения в лужах" },
+    { label:"JSON для картинки (серия в одном стиле)", text:"", json:`{
+  "subject": "рыжеволосая девушка 25 лет в льняном платье цвета охры, лёгкая улыбка",
+  "action": "сидит у окна кафе, держит чашку",
+  "environment": "уютное кафе, утро, размытые посетители на фоне",
+  "style": "реалистичная фотография, плёночное зерно",
+  "lighting": "мягкий золотой час, свет сбоку из окна",
+  "color_palette": ["охра", "кремовый", "бордовый акцент"],
+  "composition": "крупный план, правило третей",
+  "camera": { "lens_mm": 85, "aperture": "f/1.8", "depth_of_field": "малая" },
+  "mood": "тёплое, спокойное утро"
+}` },
+    { label:"JSON для видео (оживить фото с референсом)", text:"", json:`{
+  "reference_images": ["фото героини из примера выше"],
+  "subject": "та же рыжеволосая девушка в платье цвета охры",
+  "action": "медленно поворачивает голову к камере и улыбается",
+  "camera": { "movement": "медленный наезд (push-in)", "lens_mm": 50, "fps": 30 },
+  "lighting": "мягкий золотой час из окна",
+  "duration_seconds": 5,
+  "audio": "тихий эмбиент кафе, шум дождя за окном",
+  "negative_prompt": "кривые руки, искажённое лицо, лишний текст, дрожащая камера"
+}` },
+    { label:"Image-to-image (свой персонаж в 4 образах)", text:"Загрузить своё фото в Nano Banana 2, затем: «Нарисуй этого же человека в четырёх образах: деловой, спортивный, вечерний, повседневный. Сохрани лицо и черты неизменными, меняй только одежду и обстановку»" }
+  ],
+  offers: [
+    { t:"Гайд «Вход в нейросети с нуля»", d:"Этот PDF. С какой нейросети начать бесплатно, как оплатить из РФ, как не нарваться на мошенника, готовые промпты. Можно осваивать вдвоём с дочкой за вечер.", p:"490 ₽", hot:true },
+    { t:"Консультация, 1 час", d:"Сядем на час созвоном — ты сама сделаешь то, ради чего пришла. Не лекция, делаем вместе на твоём экране. Первый разогрев-созвон — 990 ₽.", p:"1 900 ₽" },
+    { t:"Помощь с покупкой подписки", d:"Оплачу вместе с тобой в прямом эфире, покажу, что всё работает, останусь на связи, если слетит. Живой человек с репутацией, а не ник в каталоге.", p:"+900 ₽" },
+    { t:"Пакет «под ключ»", d:"Гайд + час со мной + оплачу твою первую подписку. Курсы за это берут 50 000 ₽ и оставляют один на один с VPN. Я — нет.", p:"4 900 ₽", hot:true }
+  ]
+};
+
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function inline(s){return esc(s).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/`(.+?)`/g,'<code>$1</code>');}
+function md(src){
+  const L=src.split('\n');let h='',i=0;
+  while(i<L.length){let ln=L[i];
+    if(/^\s*$/.test(ln)){i++;continue;}
+    if(/^\s*\|/.test(ln)){const rows=[];while(i<L.length&&/^\s*\|/.test(L[i])){rows.push(L[i]);i++;}
+      const pr=r=>r.trim().replace(/^\|/,'').replace(/\|\s*$/,'').split('|').map(c=>c.trim());
+      let t='<table><thead><tr>'+pr(rows[0]).map(c=>'<th>'+inline(c)+'</th>').join('')+'</tr></thead><tbody>';
+      for(let r=2;r<rows.length;r++)t+='<tr>'+pr(rows[r]).map(c=>'<td>'+inline(c)+'</td>').join('')+'</tr>';
+      h+=t+'</tbody></table>';continue;}
+    if(/^\s*---\s*$/.test(ln)){h+='<hr>';i++;continue;}
+    if(/^##\s+/.test(ln)){h+='<h4>'+inline(ln.replace(/^##\s+/,''))+'</h4>';i++;continue;}
+    if(/^\s*-\s+/.test(ln)){let t='<ul>';while(i<L.length&&/^\s*-\s+/.test(L[i])){t+='<li>'+inline(L[i].replace(/^\s*-\s+/,''))+'</li>';i++;}h+=t+'</ul>';continue;}
+    if(/^\s*\d+\.\s+/.test(ln)){let t='<ol>';while(i<L.length&&/^\s*\d+\.\s+/.test(L[i])){t+='<li>'+inline(L[i].replace(/^\s*\d+\.\s+/,''))+'</li>';i++;}h+=t+'</ol>';continue;}
+    let p=ln;i++;while(i<L.length&&!/^\s*$/.test(L[i])&&!/^\s*[-|#]/.test(L[i])&&!/^\s*\d+\.\s+/.test(L[i])){p+=' '+L[i];i++;}
+    h+='<p>'+inline(p)+'</p>';
+  }
+  return h;
+}
+function jsonHi(s){
+  return esc(s)
+    .replace(/(&quot;[^&]*?&quot;)(\s*:)/g,'<span class="jkey">$1</span>$2')
+    .replace(/:\s*(&quot;[^&]*?&quot;)/g,': <span class="jstr">$1</span>')
+    .replace(/([{}\[\],])/g,'<span class="jpunc">$1</span>');
+}
+function foot(n){return '<div class="foot"><span><b>CROWBAH</b> · Вход в нейросети</span><span>'+n+'</span></div>';}
+
+let H='';
+// cover
+H+=`<div class="page cover">
+  <svg class="net" viewBox="0 0 600 850" preserveAspectRatio="xMidYMid slice" fill="none">
+    <g stroke="#34d3ee" stroke-width="1" opacity="0.35">
+      <line x1="80" y1="120" x2="240" y2="60"/><line x1="240" y1="60" x2="430" y2="160"/><line x1="430" y1="160" x2="520" y2="80"/>
+      <line x1="80" y1="120" x2="160" y2="300"/><line x1="160" y1="300" x2="360" y2="260"/><line x1="360" y1="260" x2="430" y2="160"/>
+      <line x1="160" y1="300" x2="120" y2="520"/><line x1="360" y1="260" x2="470" y2="430"/><line x1="470" y1="430" x2="520" y2="80"/>
+      <line x1="120" y1="520" x2="300" y2="600"/><line x1="300" y1="600" x2="470" y2="430"/><line x1="300" y1="600" x2="240" y2="780"/>
+    </g>
+    <g fill="#34d3ee">
+      <circle cx="80" cy="120" r="4"/><circle cx="240" cy="60" r="4"/><circle cx="430" cy="160" r="5"/><circle cx="520" cy="80" r="4"/>
+      <circle cx="160" cy="300" r="5"/><circle cx="360" cy="260" r="6"/><circle cx="120" cy="520" r="4"/><circle cx="470" cy="430" r="5"/><circle cx="300" cy="600" r="6"/><circle cx="240" cy="780" r="4"/>
+    </g>
+  </svg>
+  <div class="brand">CROW<span class="x">BAH</span></div>
+  <div class="tag">студия нейро-контента · гайд для новичка</div>
+  <h1>${G.cover_h1.replace('нуля','<span class="x">нуля</span>')}</h1>
+  <div class="sub">${esc(G.subtitle)}</div>
+  <div class="who">${esc(G.who)}</div>
+  <div class="meta"><span>версия 1.0 · 2026</span><span>автор <b>Сергей Бах</b></span><span><b>@sergeybah</b></span></div>
+</div>`;
+// sections
+let pageNo=2;
+G.sections.forEach(s=>{
+  H+=`<div class="page">
+    <div class="shead"><div class="no">${s.number}</div><div class="ht"><div class="kick">${esc(s.kicker)}</div><h2>${esc(s.title)}</h2></div></div>
+    <div class="body">${md(s.body)}</div>
+    <div class="info">${s.info}</div>
+    ${foot('страница '+pageNo)}
+  </div>`;
+  pageNo++;
+});
+// prompts page(s)
+let pc='';
+G.prompts.forEach(p=>{
+  pc+=`<div class="pcard"><div class="ph"><div class="pl">${esc(p.label)}</div><div class="copy">копировать</div></div>`;
+  if(p.json){pc+=`<pre class="json">${jsonHi(p.json)}</pre>`;}
+  else{pc+=`<pre>${esc(p.text)}</pre>`;}
+  pc+=`</div>`;
+});
+H+=`<div class="page">
+  <div class="shead"><div class="no">＊</div><div class="ht"><div class="kick">бери и копируй</div><h2>Готовые промпты</h2></div></div>
+  <div class="body" style="margin-bottom:8pt">Скопируй целиком, вставь в нейросеть, поменяй слова под себя. Сначала текстовые, потом JSON — для серий и видео.</div>
+  ${pc}
+  ${foot('страница '+pageNo)}
+</div>`;
+pageNo++;
+// offer page
+let orows='';
+G.offers.forEach(o=>{orows+=`<div class="orow${o.hot?' hot':''}"><div class="ol"><div class="ot">${esc(o.t)}</div><div class="od">${esc(o.d)}</div></div><div class="op">${esc(o.p)}</div></div>`;});
+H+=`<div class="page">
+  <div class="shead"><div class="no">→</div><div class="ht"><div class="kick">что дальше</div><h2>Дальше — за руку, сколько нужно</h2></div></div>
+  <div class="body" style="margin-bottom:10pt">Я не обещаю доход и не продаю «удивительный мир ИИ». Обещаю простое: ты перестанешь бояться кнопки «купить» и через час сделаешь первую красивую картинку сама. Этого достаточно для старта.</div>
+  <div class="offer">${orows}</div>
+  <div class="contact">
+    <div class="who2">Сергей <span class="x">Бах</span> — CROWBAH</div>
+    <div class="lk">Telegram <b>@sergeybah</b> · <b>bahead@mail.ru</b></div>
+  </div>
+  <div class="disc">Делаю нейро-контент профессионально. Моя артистка MIRA VALE — целиком сгенерированная личность (внешность, музыка, видео). Цены действительны на 2026 год, могут меняться. Оплата на карту, доступ к гайду — сразу после оплаты.</div>
+  ${foot('контакты')}
+</div>`;
+
+document.getElementById('doc').innerHTML=H;
+document.title='CROWBAH — Вход в нейросети с нуля';
+window.__ready=true;
+</script>
+</body>
+</html>
