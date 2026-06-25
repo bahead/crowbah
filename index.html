@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>CROWBAH — звук и системы под ключ</title>
-<meta name="description" content="CROWBAH — релизный звук для Suno-треков, музыка Mira Vale, цифровая студия и автоматизация. Гайды, сайты, боты под ключ.">
-<meta property="og:title" content="CROWBAH — звук и системы под ключ">
-<meta property="og:description" content="Релизный звук для твоего трека, музыка Mira Vale, студия и автоматизация.">
+<title>CROWBAH — AI-продакшн студия полного цикла</title>
+<meta name="description" content="Бах — специалист по нейросетям. Автономные контент-заводы, генерация музыки и визуала, Telegram-боты, сайты и айдентика. От идеи до системы, которая работает сама.">
+<meta property="og:title" content="CROWBAH — AI-продакшн студия полного цикла">
+<meta property="og:description" content="Создаю студии, которые работают сами: контент-заводы, музыка Mira Vale, визуал, боты. Нейросети под реальные задачи.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="assets/raven-hero.jpg">
+<meta property="og:image" content="assets/media/raven.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23070b12'/%3E%3Cpath d='M18 4.5 L8.5 18 H14.5 L12.5 27.5 L23.5 12.5 H17 Z' fill='%2334d3ee'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,7 +35,7 @@ a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
 .wrap{position:relative;z-index:3;max-width:var(--maxw);margin:0 auto;padding:0 var(--mx)}
 
 h1,h2,h3{font-family:var(--fd);letter-spacing:-.03em;line-height:1;text-wrap:balance}
-p,.hero-lead,.cell p,.cta-card p,.feat li span{text-wrap:pretty}
+p,.lead-sub,.cell p{text-wrap:pretty}
 .mono{font-family:var(--fm)} .muted{color:var(--muted)} .nw{white-space:nowrap}
 .tnum{font-family:var(--fm);font-variant-numeric:tabular-nums}
 .kick{font-family:var(--fm);font-size:.7rem;letter-spacing:.26em;text-transform:uppercase;color:var(--cyan);display:inline-flex;align-items:center;gap:.8em}
@@ -45,19 +45,20 @@ p,.hero-lead,.cell p,.cta-card p,.feat li span{text-wrap:pretty}
 #bar{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--cyan),var(--indigo));z-index:80;box-shadow:0 0 10px rgba(52,211,238,.6)}
 
 /* nav — glass */
-nav{position:sticky;top:0;z-index:60;background:rgba(10,14,23,.55);backdrop-filter:blur(20px) saturate(1.4);border-bottom:1px solid var(--line)}
+nav{position:fixed;top:0;left:0;right:0;z-index:60;background:rgba(8,11,18,.5);backdrop-filter:blur(20px) saturate(1.4);border-bottom:1px solid transparent;transition:background .3s,border-color .3s}
+nav.solid{background:rgba(8,11,18,.82);border-bottom-color:var(--line)}
 .nav-in{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:var(--maxw);margin:0 auto;padding:0 var(--mx)}
 .brand{font-family:var(--fd);font-weight:900;font-size:1.34rem;letter-spacing:.03em}
 .brand .x{color:var(--cyan)}
 .nav-right{display:flex;align-items:center;gap:22px}
-.nav-links{display:flex;gap:26px;font-size:.92rem;color:var(--muted);font-weight:500}
+.nav-links{display:flex;gap:24px;font-size:.92rem;color:var(--muted);font-weight:500}
 .nav-links a{transition:color .2s var(--ease)} .nav-links a:hover,.nav-links a.active{color:var(--text)}
 .nav-cta{font-family:var(--fm);font-size:.76rem;letter-spacing:.05em;padding:10px 18px;border:1px solid var(--line2);border-radius:var(--r-sm);transition:.2s var(--ease)}
 .nav-cta:hover{border-color:var(--cyan);box-shadow:var(--glow)}
 .burger{display:none;width:42px;height:42px;align-items:center;justify-content:center;border:1px solid var(--line2);border-radius:var(--r-sm);background:transparent;color:var(--text);cursor:pointer;font-size:1.1rem}
-@media(max-width:860px){
+@media(max-width:900px){
   .nav-links{position:absolute;top:64px;left:0;right:0;flex-direction:column;gap:0;background:rgba(8,11,20,.98);border-bottom:1px solid var(--line);padding:8px var(--mx);max-height:0;overflow:hidden;transition:max-height .3s var(--ease)}
-  .nav-links.open{max-height:340px}
+  .nav-links.open{max-height:420px}
   .nav-links a{padding:13px 0;border-bottom:1px solid var(--line);font-size:1rem}
   .nav-cta{display:none} .burger{display:inline-flex}
 }
@@ -72,140 +73,170 @@ nav{position:sticky;top:0;z-index:60;background:rgba(10,14,23,.55);backdrop-filt
 .btn-gh:hover{border-color:var(--cyan);color:var(--cyan)}
 .btn .ar{transition:transform .2s var(--ease)}.btn:hover .ar{transform:translateX(4px)}
 
-/* hero */
-.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line);background:var(--bg2);min-height:min(94vh,860px);display:flex;align-items:center}
-.hero-grid{position:relative;z-index:3;display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:center;max-width:var(--maxw);margin:0 auto;padding:clamp(48px,8vh,90px) var(--mx) clamp(80px,12vh,120px);width:100%}
-.hero-art{position:absolute;right:0;top:0;bottom:0;width:58%;z-index:1}
-.hero-art img{width:100%;height:100%;object-fit:cover;object-position:60% center;will-change:transform}
-.hero-art::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--bg) 8%,rgba(6,9,15,.35) 45%,transparent 75%),radial-gradient(60% 80% at 75% 40%,rgba(52,211,238,.18),transparent 60%)}
-@media(max-width:860px){.hero-art{width:100%;opacity:.5} .hero-art::after{background:linear-gradient(180deg,rgba(6,9,15,.6),rgba(6,9,15,.92))}}
-.hero-col{position:relative;z-index:3;max-width:640px}
-.pill{display:inline-flex;align-items:center;gap:.6em;font-family:var(--fm);font-size:.7rem;letter-spacing:.1em;color:var(--cyan);border:1px solid rgba(52,211,238,.32);background:rgba(52,211,238,.05);padding:7px 14px;border-radius:999px;text-transform:uppercase}
+/* ===== HERO — scroll-scrub video ===== */
+.hero-stage{position:relative;height:220vh}
+.hero-sticky{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;background:var(--bg2)}
+.hero-vid,.hero-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.hero-poster{z-index:0}
+.hero-vid{z-index:1}
+.hero-veil{position:absolute;inset:0;z-index:2;background:
+  linear-gradient(180deg,rgba(6,9,15,.55) 0%,rgba(6,9,15,.35) 35%,rgba(6,9,15,.78) 100%),
+  radial-gradient(80% 90% at 70% 35%,rgba(52,211,238,.10),transparent 60%)}
+.hero-raven{position:absolute;right:clamp(-40px,2vw,60px);bottom:0;width:min(46vw,560px);z-index:3;
+  filter:drop-shadow(0 0 60px rgba(52,211,238,.35));pointer-events:none;opacity:.92;mix-blend-mode:screen;will-change:transform}
+@media(max-width:900px){.hero-raven{opacity:.5;width:80vw;right:-10vw}}
+.hero-content{position:relative;z-index:4;max-width:var(--maxw);margin:0 auto;padding:0 var(--mx);width:100%;will-change:transform,opacity}
+.pill{display:inline-flex;align-items:center;gap:.6em;font-family:var(--fm);font-size:.7rem;letter-spacing:.1em;color:var(--cyan);border:1px solid rgba(52,211,238,.32);background:rgba(52,211,238,.06);padding:7px 14px;border-radius:999px;text-transform:uppercase;backdrop-filter:blur(6px)}
 .pill .dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan);animation:pulse 2s infinite}
 @keyframes pulse{50%{opacity:.4}}
-h1.h{font-family:var(--fd);font-weight:900;font-size:clamp(3rem,10vw,7.6rem);letter-spacing:-.05em;line-height:.88;margin:22px 0 0;text-transform:uppercase}
-h1.h .x{color:var(--cyan);text-shadow:0 0 44px rgba(52,211,238,.4)}
-.hero-lead{font-size:clamp(1.02rem,2vw,1.22rem);color:#cdd6e4;max-width:44ch;margin-top:20px;line-height:1.5}
+h1.h{font-family:var(--fd);font-weight:900;font-size:clamp(2.7rem,9.4vw,7rem);letter-spacing:-.05em;line-height:.9;margin:22px 0 0;text-transform:uppercase;max-width:15ch}
+h1.h .x{color:var(--cyan);text-shadow:0 0 44px rgba(52,211,238,.45)}
+.hero-lead{font-size:clamp(1.02rem,2vw,1.24rem);color:#dbe2ee;max-width:48ch;margin-top:22px;line-height:1.5}
 .hero-actions{display:flex;gap:13px;flex-wrap:wrap;margin-top:30px}
-.hero-fact{display:flex;align-items:stretch;gap:13px;margin-top:28px;font-family:var(--fm);font-size:.8rem;color:#cdd5e3;max-width:50ch;line-height:1.55}
-.hero-fact b{color:var(--cyan);font-weight:700}
-.hero-fact .bar{width:3px;background:var(--cyan);border-radius:2px;flex:none;box-shadow:0 0 12px rgba(52,211,238,.6)}
-/* waveform signature */
-.wave{position:absolute;left:0;right:0;bottom:0;z-index:2;height:90px;display:flex;align-items:flex-end;gap:3px;padding:0 var(--mx);opacity:.55;pointer-events:none;mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
-.wave i{flex:1;min-width:2px;background:linear-gradient(180deg,var(--cyan),var(--indigo));border-radius:2px 2px 0 0;height:18%;transform-origin:bottom;animation:wv 1.7s var(--ease) infinite alternate}
-@keyframes wv{to{height:90%}}
+.scroll-cue{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:4;font-family:var(--fm);font-size:.64rem;letter-spacing:.2em;color:var(--dim);text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:8px}
+.scroll-cue .ln{width:1px;height:34px;background:linear-gradient(180deg,var(--cyan),transparent);animation:cue 1.8s var(--ease) infinite}
+@keyframes cue{0%{transform:scaleY(.2);transform-origin:top;opacity:.3}50%{transform:scaleY(1);opacity:1}100%{transform:scaleY(.2);transform-origin:bottom;opacity:.3}}
+
+/* glitch heading */
+.glitch{position:relative;display:inline-block}
+.glitch::before,.glitch::after{content:attr(data-t);position:absolute;left:0;top:0;width:100%;clip-path:inset(0 0 0 0);opacity:.85}
+.glitch::before{color:var(--cyan);transform:translate(-2px,0);mix-blend-mode:screen;animation:gl1 4s steps(2,end) infinite}
+.glitch::after{color:var(--magenta);transform:translate(2px,0);mix-blend-mode:screen;animation:gl2 4.4s steps(2,end) infinite}
+@keyframes gl1{0%,92%,100%{clip-path:inset(0 0 100% 0)}93%{clip-path:inset(10% 0 60% 0)}96%{clip-path:inset(50% 0 20% 0)}}
+@keyframes gl2{0%,90%,100%{clip-path:inset(100% 0 0 0)}94%{clip-path:inset(40% 0 35% 0)}97%{clip-path:inset(70% 0 10% 0)}}
 
 /* sections */
-section{padding:clamp(60px,9vh,104px) 0;position:relative}
+section{padding:clamp(64px,10vh,116px) 0;position:relative}
 .divider{display:flex;align-items:center;gap:16px;max-width:var(--maxw);margin:0 auto;padding:0 var(--mx)}
 .divider .ln{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--line2),transparent)}
 .divider .tc{font-family:var(--fm);font-size:.66rem;letter-spacing:.18em;color:var(--dim);text-transform:uppercase}
-.sec-head{position:relative;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:34px;flex-wrap:wrap}
-.sec-head .ghost{position:absolute;right:0;top:-.4em;font-family:var(--fd);font-weight:900;font-size:clamp(4rem,9vw,8rem);color:rgba(255,255,255,.04);z-index:0;letter-spacing:-.05em;pointer-events:none}
+.sec-head{position:relative;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:36px;flex-wrap:wrap}
+.sec-head .ghost{position:absolute;right:0;top:-.45em;font-family:var(--fd);font-weight:900;font-size:clamp(4rem,9vw,8rem);color:rgba(255,255,255,.04);z-index:0;letter-spacing:-.05em;pointer-events:none}
 .sec-head .hl{position:relative;z-index:1}
 .sec-head h2{font-weight:800;font-size:clamp(1.9rem,4.6vw,3rem);margin-top:10px}
 .sec-head h2 .x{color:var(--cyan)}
 .sec-no{font-family:var(--fm);font-size:.74rem;color:var(--muted);letter-spacing:.05em;position:relative;z-index:1}
-.lead-sub{max-width:52ch;color:var(--muted);font-size:1.02rem;line-height:1.5}
+.lead-sub{max-width:54ch;color:var(--muted);font-size:1.04rem;line-height:1.55}
+
+/* manifest full-bleed */
+.manifest{position:relative;z-index:3;text-align:center;padding:clamp(74px,14vh,140px) var(--mx);border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:linear-gradient(180deg,rgba(91,120,255,.05),rgba(255,59,107,.03))}
+.manifest q{quotes:none;display:block;font-family:var(--fd);font-weight:800;font-size:clamp(1.7rem,5vw,3.3rem);letter-spacing:-.03em;line-height:1.08;max-width:20ch;margin:0 auto;text-wrap:balance}
+.manifest q .x{color:var(--cyan)}
+.manifest .by{font-family:var(--fm);font-size:.74rem;letter-spacing:.14em;color:var(--dim);text-transform:uppercase;margin-top:24px}
+
+/* about */
+.about{display:grid;grid-template-columns:1.3fr .7fr;gap:34px;align-items:center}
+@media(max-width:840px){.about{grid-template-columns:1fr}}
+.about p{color:#cbd3e2;font-size:1.08rem;line-height:1.6;margin-bottom:16px}
+.about p b{color:#fff;font-weight:600}
+.about .x{color:var(--cyan)}
+.stat-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:26px}
+.stat{flex:1;min-width:140px;border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;background:linear-gradient(180deg,var(--panel),var(--bg2))}
+.stat b{display:block;font-family:var(--fd);font-weight:900;font-size:1.9rem;color:#fff;line-height:1}
+.stat b .x{color:var(--cyan)}
+.stat span{font-family:var(--fm);font-size:.72rem;color:var(--muted);letter-spacing:.04em}
+.about-fig{position:relative;border-radius:var(--r);overflow:hidden;border:1px solid var(--line2);box-shadow:var(--sh);aspect-ratio:4/5}
+.about-fig img{width:100%;height:100%;object-fit:cover}
+.about-fig::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(6,9,15,.6))}
+
+/* ===== MIRA story — split ===== */
+.story{display:grid;grid-template-columns:.9fr 1.1fr;gap:40px;align-items:center}
+@media(max-width:900px){.story{grid-template-columns:1fr}}
+.story-art{position:relative;border-radius:var(--r);overflow:hidden;border:1px solid var(--line2);box-shadow:0 40px 80px -40px rgba(52,211,238,.4)}
+.story-art img{width:100%;display:block}
+.story-art .tag{position:absolute;left:14px;bottom:14px;font-family:var(--fm);font-size:.66rem;letter-spacing:.1em;color:var(--cyan);background:rgba(6,9,15,.7);border:1px solid var(--line2);padding:6px 12px;border-radius:999px;backdrop-filter:blur(8px)}
+.story h2{font-weight:800;font-size:clamp(2rem,5vw,3.2rem);margin:14px 0 18px}
+.story h2 .x{color:var(--cyan)}
+.story p{color:#cbd3e2;font-size:1.06rem;line-height:1.6;margin-bottom:14px}
+.story p b{color:#fff;font-weight:600}
+.story-quote{border-left:2px solid var(--cyan);padding:4px 0 4px 18px;margin:22px 0;font-family:var(--fd);font-weight:500;font-size:1.16rem;color:#eaf0f8;font-style:italic}
+.story-links{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
 
 /* bento */
 .bento{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
-.cell{position:relative;background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:var(--r);padding:26px;box-shadow:var(--sh);overflow:hidden;transition:transform .26s var(--ease),border-color .26s}
+.cell{position:relative;background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:var(--r);padding:24px;box-shadow:var(--sh);overflow:hidden;transition:transform .26s var(--ease),border-color .26s}
 .cell:hover{border-color:var(--line2);transform:translateY(-4px)}
-.cell .glow{position:absolute;inset:0;opacity:0;transition:opacity .3s;background:radial-gradient(220px 220px at var(--mx,50%) var(--my,0%),rgba(52,211,238,.14),transparent 70%);pointer-events:none}
+.cell .glow{position:absolute;inset:0;opacity:0;transition:opacity .3s;background:radial-gradient(220px 220px at var(--gx,50%) var(--gy,0%),rgba(52,211,238,.14),transparent 70%);pointer-events:none}
 .cell:hover .glow{opacity:1}
-.c6{grid-column:span 6} .c5{grid-column:span 5} .c4{grid-column:span 4} .c3{grid-column:span 3} .c2{grid-column:span 2} .c1{grid-column:span 1}
-@media(max-width:900px){.c5,.c4,.c3,.c2,.c1{grid-column:span 3} .c6{grid-column:span 6}}
-@media(max-width:620px){.bento{grid-template-columns:1fr} .c6,.c5,.c4,.c3,.c2,.c1{grid-column:span 1}}
-.cell .lbl{font-family:var(--fm);font-size:.68rem;letter-spacing:.08em;color:var(--cyan);text-transform:uppercase;margin-bottom:14px;display:block}
-.cell h3{font-weight:700;font-size:1.3rem;margin-bottom:8px}
-.cell p{color:var(--muted);font-size:1rem;line-height:1.5}
+.c6{grid-column:span 6} .c4{grid-column:span 4} .c3{grid-column:span 3} .c2{grid-column:span 2}
+@media(max-width:900px){.c4,.c3,.c2{grid-column:span 3} .c6{grid-column:span 6}}
+@media(max-width:620px){.bento{grid-template-columns:1fr} .c6,.c4,.c3,.c2{grid-column:span 1}}
+.cell .lbl{font-family:var(--fm);font-size:.66rem;letter-spacing:.08em;color:var(--cyan);text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.cell h3{font-weight:700;font-size:1.28rem;margin-bottom:8px}
+.cell h3 .x{color:var(--cyan)}
+.cell p{color:var(--muted);font-size:.98rem;line-height:1.5}
+.cell .thumb{margin:-24px -24px 18px;border-bottom:1px solid var(--line);overflow:hidden;aspect-ratio:16/8;background:var(--bg2)}
+.cell .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+.cell:hover .thumb img{transform:scale(1.05)}
+.cell.tall .thumb{aspect-ratio:16/10}
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}
+.chip{font-family:var(--fm);font-size:.66rem;color:#bcc6d6;border:1px solid var(--line);border-radius:999px;padding:4px 10px}
+.chip.on{color:var(--cyan);border-color:rgba(52,211,238,.4)}
+.priceline{display:flex;align-items:baseline;gap:10px;margin-top:14px;flex-wrap:wrap}
+.priceline b{font-family:var(--fd);font-weight:900;font-size:1.5rem;color:#fff}
+.priceline b .x{color:var(--cyan)}
+.priceline span{font-family:var(--fm);font-size:.74rem;color:var(--muted)}
+.soon-tag{font-family:var(--fm);font-size:.6rem;letter-spacing:.08em;color:var(--dim);border:1px solid var(--line);border-radius:999px;padding:2px 9px;text-transform:uppercase;margin-left:auto}
 
-/* data-viz proof */
-.viz-gauge{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
-.gauge{position:relative;width:128px;height:128px;flex:none}
+/* ===== infographic — b&w + cyan ===== */
+.viz{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media(max-width:900px){.viz{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.viz{grid-template-columns:1fr}}
+.vcell{border:1px solid var(--line);border-radius:var(--r);padding:24px;background:linear-gradient(180deg,var(--panel),var(--bg2));position:relative;overflow:hidden}
+.vcell .lbl{font-family:var(--fm);font-size:.66rem;letter-spacing:.08em;color:var(--cyan);text-transform:uppercase;margin-bottom:16px;display:block}
+.bign{font-family:var(--fd);font-weight:900;font-size:clamp(2.4rem,6vw,3.4rem);color:#fff;line-height:.9}
+.bign .x{color:var(--cyan)}
+.vcell p{color:var(--muted);font-size:.92rem;line-height:1.5;margin-top:10px}
+.gauge{position:relative;width:118px;height:118px;margin:0 auto}
 .gauge svg{transform:rotate(-90deg)}
 .gauge .val{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.gauge .val b{font-family:var(--fd);font-weight:900;font-size:1.7rem;color:#fff;line-height:1}
-.gauge .val s{font-family:var(--fm);font-size:.6rem;color:var(--cyan);text-decoration:none;letter-spacing:.06em;margin-top:3px}
-.matrix{display:grid;grid-template-columns:repeat(18,1fr);gap:3px;margin:6px 0 2px}
-.matrix i{aspect-ratio:1;background:var(--cyan);border-radius:1px;opacity:.22}
-.bign{font-family:var(--fd);font-weight:900;font-size:clamp(2.6rem,6vw,3.6rem);color:#fff;line-height:.9}
-.bign .x{color:var(--cyan)}
-.meter{height:10px;border-radius:6px;background:rgba(255,255,255,.06);position:relative;margin:16px 0 6px;overflow:hidden}
-.meter i{position:absolute;left:0;top:0;bottom:0;width:74%;background:linear-gradient(90deg,var(--indigo),var(--cyan));border-radius:6px}
-.meter .mk{position:absolute;top:-6px;bottom:-6px;left:74%;width:2px;background:#fff}
+.gauge .val b{font-family:var(--fd);font-weight:900;font-size:1.5rem;color:#fff;line-height:1}
+.gauge .val s{font-family:var(--fm);font-size:.58rem;color:var(--cyan);text-decoration:none;margin-top:3px}
+.matrix{display:grid;grid-template-columns:repeat(12,1fr);gap:3px;margin-top:8px}
+.matrix i{aspect-ratio:1;background:var(--cyan);border-radius:1px;opacity:.18}
+.flow{display:flex;align-items:center;gap:8px;margin-top:6px;font-family:var(--fm);font-size:.8rem;color:#cdd5e3;flex-wrap:wrap}
+.flow .from{color:var(--magenta)} .flow .to{color:var(--cyan);font-weight:700} .flow .ar{color:var(--dim)}
 
-/* manifest full-bleed */
-.manifest{position:relative;z-index:3;text-align:center;padding:clamp(70px,13vh,130px) var(--mx);border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:linear-gradient(180deg,rgba(91,120,255,.05),rgba(255,59,107,.03))}
-.manifest q{quotes:none;display:block;font-family:var(--fd);font-weight:800;font-size:clamp(1.8rem,5vw,3.4rem);letter-spacing:-.03em;line-height:1.05;max-width:18ch;margin:0 auto;text-wrap:balance}
-.manifest q .x{color:var(--cyan)}
-.manifest .by{font-family:var(--fm);font-size:.74rem;letter-spacing:.14em;color:var(--dim);text-transform:uppercase;margin-top:22px}
+/* courses */
+.course{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:820px){.course{grid-template-columns:1fr}}
 
-/* music */
-.music{display:flex;gap:24px;align-items:center;flex-wrap:wrap}
-.music .cover{position:relative;width:152px;flex:none;border-radius:var(--r-sm);overflow:hidden;border:1px solid var(--line2);box-shadow:0 30px 60px -30px rgba(52,211,238,.35)}
-.music .cover img{width:100%;aspect-ratio:1;object-fit:cover}
-.music .meta{flex:1;min-width:220px}
-.listen{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
-.listen a{font-family:var(--fm);font-size:.8rem;padding:11px 18px;border:1px solid var(--line2);border-radius:var(--r-sm);color:var(--text);background:rgba(255,255,255,.025);transition:.2s var(--ease);display:inline-flex;gap:.4em;align-items:center;min-height:44px}
-.listen a:hover{border-color:var(--cyan);color:var(--cyan)}
-.yam{margin-top:18px;border:1px solid var(--line);border-radius:var(--r-sm);overflow:hidden}
-.yam iframe{display:block;width:100%;height:180px;border:0;background:var(--panel)}
-
-/* offer */
-.price{font-family:var(--fd);font-weight:900;font-size:2.7rem;color:#fff;line-height:1}
-.price small{font-size:1.1rem;color:var(--cyan)}
-.price-old{font-family:var(--fm);color:var(--muted);text-decoration:line-through;font-size:.92rem}
-.feat{list-style:none;display:grid;gap:11px;margin:14px 0}
-.feat li{display:flex;gap:11px;font-size:.96rem;color:#d4dae4;line-height:1.45}
-.feat li b{color:var(--cyan);font-family:var(--fm);font-size:.8rem}
-.buy-facts{display:grid;gap:7px;margin:16px 0;font-family:var(--fm);font-size:.74rem;color:#bcc6d6}
-.buy-facts div{display:flex;gap:8px}.buy-facts .ok{color:var(--cyan)}
-.svc-row{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:.96rem}
-.svc-row:last-child{border-bottom:0}
-.svc-row b{font-family:var(--fm);color:#fff;font-weight:500;white-space:nowrap}
-.svc-row span{color:var(--muted)}
-
-/* ladder */
-.rung-h{display:flex;align-items:center;gap:10px}
-.rung-h .st{font-family:var(--fm);font-size:.68rem;color:var(--cyan);letter-spacing:.05em}
-.cell.soon .rung-h .st{color:var(--muted)}.cell.soon h3,.cell.soon p{color:var(--muted)}
-.tag-soon{font-family:var(--fm);font-size:.6rem;letter-spacing:.08em;color:var(--dim);border:1px solid var(--line);border-radius:999px;padding:2px 9px;text-transform:uppercase}
-
-/* cta */
+/* ===== contacts / engine ===== */
 #contact{text-align:center}
 .cta-card{position:relative;border:1px solid var(--line2);border-radius:var(--r);padding:clamp(44px,7vw,76px) var(--mx);background:rgba(13,18,32,.55);backdrop-filter:blur(20px) saturate(1.3);overflow:hidden;box-shadow:var(--sh)}
 .cta-card::before{content:"";position:absolute;inset:0;background:radial-gradient(130% 150% at 50% -25%,rgba(52,211,238,.16),transparent 55%);pointer-events:none}
 .cta-card h2{position:relative;font-weight:900;font-size:clamp(2rem,5.2vw,3.4rem);margin-bottom:14px}
 .cta-card h2 .x{color:var(--cyan)}
-.cta-card p{position:relative;color:var(--muted);max-width:44ch;margin:0 auto 26px;line-height:1.5}
+.cta-card p{position:relative;color:var(--muted);max-width:46ch;margin:0 auto 26px;line-height:1.5}
 .cta-actions{position:relative;display:flex;gap:13px;justify-content:center;flex-wrap:wrap}
-.pay-note{position:relative;margin-top:22px;font-family:var(--fm);font-size:.74rem;color:var(--muted)}
-.pay-note b{color:#cdd5e3}
+.engine{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:30px;position:relative;z-index:1}
+.engine a{font-family:var(--fm);font-size:.78rem;color:#cdd5e3;border:1px solid var(--line);border-radius:999px;padding:9px 16px;display:inline-flex;align-items:center;gap:.5em;transition:.2s var(--ease);background:rgba(255,255,255,.02)}
+.engine a:hover{border-color:var(--cyan);color:var(--cyan);transform:translateY(-2px)}
+.engine a .d{width:6px;height:6px;border-radius:50%;background:var(--cyan);opacity:.7}
 
 footer{border-top:1px solid var(--line);padding:34px 0 56px;color:var(--dim);position:relative;z-index:3}
 .foot-in{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--fm);font-size:.76rem;letter-spacing:.02em}
 .foot-in a:hover{color:var(--cyan)}
 
 /* motion */
-.js .reveal{opacity:0;transform:translateY(20px)}
+.js .reveal{opacity:0;transform:translateY(22px)}
 .js .reveal.in{opacity:1;transform:none;transition:opacity .7s var(--ease),transform .7s var(--ease)}
-@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.js .reveal{opacity:1;transform:none}.wave i{height:55%}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.js .reveal{opacity:1;transform:none}.hero-stage{height:auto}.hero-sticky{position:relative}}
 </style>
 </head>
 <body>
 <div id="bar"></div>
 
-<nav>
+<nav id="nav">
   <div class="nav-in">
     <a class="brand" href="#top">CROW<span class="x">BAH</span></a>
     <div class="nav-right">
       <div class="nav-links" id="navlinks">
-        <a href="#music">Музыка</a>
-        <a href="#proof">Мастеринг</a>
-        <a href="#products">Продукты</a>
-        <a href="#studio">Студия</a>
+        <a href="#about">Кто я</a>
+        <a href="#mira">Mira Vale</a>
+        <a href="#work">Проекты</a>
+        <a href="#numbers">Цифры</a>
+        <a href="#learn">Курсы</a>
         <a href="#contact">Контакт</a>
       </div>
       <a class="nav-cta" href="#contact">Связаться&nbsp;→</a>
@@ -215,217 +246,263 @@ footer{border-top:1px solid var(--line);padding:34px 0 56px;color:var(--dim);pos
 </nav>
 
 <a id="top"></a>
-<header class="hero">
-  <div class="hero-art"><img id="raven" src="assets/raven-hero.jpg" alt="CROWBAH — кибер-ворон, тотем бренда" fetchpriority="high"></div>
-  <div class="hero-grid">
-    <div class="hero-col">
-      <span class="pill"><span class="dot"></span> соло-архитектор систем</span>
-      <h1 class="h">Звук,<br>который<br><span class="x">проходит</span></h1>
-      <p class="hero-lead">Релизный мастеринг, музыкальный проект Mira&nbsp;Vale и&nbsp;цифровая студия под&nbsp;ключ: сайты, айдентика, боты, автоматизация.</p>
+<!-- ===== HERO ===== -->
+<header class="hero-stage" id="hero">
+  <div class="hero-sticky">
+    <img class="hero-poster" src="assets/media/hero-poster.jpg" alt="" aria-hidden="true">
+    <video class="hero-vid" id="herovid" src="assets/media/hero-scroll.mp4" muted playsinline preload="auto" poster="assets/media/hero-poster.jpg"></video>
+    <img class="hero-raven" id="raven" src="assets/media/raven.png" alt="CROWBAH — кибер-ворон, тотем бренда">
+    <div class="hero-veil"></div>
+    <div class="hero-content" id="herocontent">
+      <span class="pill"><span class="dot"></span> AI-продакшн студия полного цикла</span>
+      <h1 class="h">Создаю&nbsp;<span class="x">миры</span><br>из&nbsp;промптов</h1>
+      <p class="hero-lead">Я&nbsp;Бах — собираю нейросети в&nbsp;системы, которые работают сами: автономные контент-заводы, музыку, визуал, ботов и&nbsp;сайты. От&nbsp;идеи до&nbsp;конвейера, который не&nbsp;требует тебя.</p>
       <div class="hero-actions">
-        <a class="btn btn-pri" href="https://t.me/sergeybah?text=%D0%A5%D0%BE%D1%87%D1%83%20%D0%B3%D0%B0%D0%B9%D0%B4%20%C2%AB%D0%A0%D0%B5%D0%BB%D0%B8%D0%B7%D0%BD%D1%8B%D0%B9%20%D0%B7%D0%B2%D1%83%D0%BA%C2%BB%20%D0%B7%D0%B0%20990" target="_blank" rel="noopener">Релизный звук за&nbsp;вечер — 990&nbsp;₽ <span class="ar">→</span></a>
-        <a class="btn btn-gh" href="#studio">Студия под&nbsp;ключ</a>
+        <a class="btn btn-pri" href="#work">Смотреть проекты <span class="ar">→</span></a>
+        <a class="btn btn-gh" href="#mira">История Mira&nbsp;Vale</a>
       </div>
-      <div class="hero-fact"><span class="bar"></span><span><b>134 трека сведено, разброс 0,09&nbsp;dB</b> — все треки звучат одинаково громко, без скачков. Это лог замеров, не обещание.</span></div>
     </div>
+    <div class="scroll-cue" aria-hidden="true"><span>скролл</span><span class="ln"></span></div>
   </div>
-  <div class="wave" id="wave" aria-hidden="true"></div>
 </header>
 
-<!-- МАНИФЕСТ -->
+<!-- ===== MANIFEST ===== -->
 <section class="manifest reveal">
-  <q>Я строю <span class="x">инструменты</span>, а&nbsp;не&nbsp;обещаю результат.</q>
-  <div class="by">CROWBAH · музыка · мастеринг · системы</div>
+  <q>Я&nbsp;создаю <span class="x">больше</span>, чем показываю.<br>Пора это перевернуть.</q>
+  <div class="by">CROWBAH · нейросети · продакшн · системы</div>
 </section>
 
-<div class="divider"><span class="tc">01</span><span class="ln"></span><span class="tc">музыка</span></div>
-<!-- МУЗЫКА -->
-<section id="music">
+<div class="divider"><span class="tc">01</span><span class="ln"></span><span class="tc">кто я</span></div>
+<!-- ===== ABOUT ===== -->
+<section id="about">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="ghost" aria-hidden="true">MIRA</span>
-      <div class="hl"><span class="kick">проект</span><h2>Mira&nbsp;<span class="x">Vale</span></h2></div>
-      <div class="sec-no nw">darkwave · trip-hop · post-metal</div>
+      <span class="ghost" aria-hidden="true">BAH</span>
+      <div class="hl"><span class="kick">личность</span><h2>Один человек —<br><span class="x">полная студия</span></h2></div>
+      <div class="sec-no nw">нейросети под задачу</div>
     </div>
-    <div class="bento">
-      <div class="cell c4 reveal"><div class="glow"></div>
-        <span class="lbl">альбом — Mirror, 2026</span>
-        <div class="music">
-          <a class="cover" href="https://music.yandex.ru/album/41451981" target="_blank" rel="noopener"><img src="assets/album-cover-mirror.jpg" alt="Mira Vale — Mirror (2026)"></a>
-          <div class="meta">
-            <h3>Mirror</h3>
-            <p>Дебютный альбом: <span class="nw">11&nbsp;треков</span>, 45:20. Сведён и&nbsp;доведён до&nbsp;релиза собственным конвейером.</p>
-            <div class="listen">
-              <a href="https://music.yandex.ru/album/41451981" target="_blank" rel="noopener">Яндекс&nbsp;Музыка</a>
-              <a href="https://tidal.com/album/512577420" target="_blank" rel="noopener">TIDAL</a>
-              <a href="https://www.pandora.com/AL:64342543" target="_blank" rel="noopener">Pandora</a>
-              <a href="https://zvuk.com/search?query=Mira%20Vale" target="_blank" rel="noopener">Звук</a>
-            </div>
-          </div>
+    <div class="about reveal">
+      <div>
+        <p>Я&nbsp;не&nbsp;«пользуюсь нейросетями». Я&nbsp;<b>строю из&nbsp;них производство</b> — от&nbsp;картинки и&nbsp;трека до&nbsp;автономного конвейера, который генерит, мастерит, упаковывает и&nbsp;публикует контент сам.</p>
+        <p>Музыка, визуал, видео, айдентика, Telegram-боты, сайты, форензик-хабы&nbsp;— это <b>один пайплайн</b>, который я&nbsp;собираю под&nbsp;нишу. Тонкая настройка тона и&nbsp;стиля, реальная интеграция, а&nbsp;не&nbsp;«внедрим ChatGPT и&nbsp;уйдём».</p>
+        <p class="muted">Ниже&nbsp;— не&nbsp;портфолио ради красоты. Это <span class="x">работающие системы</span>: артист, которого слушают; заводы, которые крутятся; бренды, которые продают.</p>
+        <div class="stat-row">
+          <div class="stat"><b class="tnum" data-c="327">0</b><span>релизов через конвейер</span></div>
+          <div class="stat"><b><span class="x">25</span> мин</b><span>вместо 6–8&nbsp;часов на&nbsp;релиз</span></div>
+          <div class="stat"><b class="tnum" data-c="9">0</b><span>проектов в&nbsp;продакшене</span></div>
         </div>
-        <div class="yam"><iframe src="https://music.yandex.ru/iframe/album/41451981/" allow="clipboard-write" loading="lazy" title="Mira Vale — Mirror на Яндекс Музыке"></iframe></div>
       </div>
-      <div class="cell c2 reveal"><div class="glow"></div>
-        <span class="lbl">синглы</span>
-        <h3>Neon&nbsp;Orchard · Mercury&nbsp;Sleep&nbsp;District</h3>
-        <p>+ свежие релизы. Жанр — тёмный экспериментальный гибрид: darkwave, trip-hop, post-metal, breaks.</p>
+      <div class="about-fig"><img src="assets/media/mira-glitch.jpeg" alt="Глитч-портрет — фирменная эстетика CROWBAH" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><span class="tc">02</span><span class="ln"></span><span class="tc">главный проект</span></div>
+<!-- ===== MIRA VALE STORY ===== -->
+<section id="mira">
+  <div class="wrap">
+    <div class="story reveal">
+      <div class="story-art">
+        <img src="assets/media/mira-mirror-web.jpg" alt="Mira Vale — обложка альбома Mirror">
+        <span class="tag">Mira Vale — Mirror, 2026</span>
+      </div>
+      <div>
+        <span class="kick">сгенерированная личность</span>
+        <h2>Я&nbsp;создал артиста, в&nbsp;которого <span class="x">не&nbsp;верят, что её&nbsp;нет</span></h2>
+        <p>Mira&nbsp;Vale&nbsp;— не&nbsp;аватар и&nbsp;не&nbsp;фильтр. Я&nbsp;нарисовал образ, выбрал стиль, направление и&nbsp;звук, собрал линейку промптов&nbsp;— и&nbsp;превратил это в&nbsp;<b>контент-завод</b>, который сам пишет промпты, отдаёт их&nbsp;в&nbsp;Suno и&nbsp;выдаёт треки.</p>
+        <div class="story-quote">«Я&nbsp;получаю хиты, почти ничего не&nbsp;делая руками. Машина пишет&nbsp;— я&nbsp;режиссирую.»</div>
+        <p>Это <b>второе альтер-эго</b>: тёмный экспериментальный гибрид&nbsp;— darkwave, trip-hop, post-metal. Есть совместные кадры, есть ролик, где Mira <b>поёт свои треки</b>. Люди спорят, что она настоящая. В&nbsp;этом и&nbsp;смысл.</p>
+        <div class="story-links">
+          <a class="btn btn-pri" href="https://t.me/miravale_mv" target="_blank" rel="noopener">Канал Mira&nbsp;Vale <span class="ar">→</span></a>
+          <a class="btn btn-gh" href="https://music.yandex.ru/album/41451981" target="_blank" rel="noopener">Слушать «Mirror»</a>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="divider"><span class="tc">02</span><span class="ln"></span><span class="tc">мастеринг</span></div>
-<!-- ПРУФ data-viz -->
-<section id="proof">
+<div class="divider"><span class="tc">03</span><span class="ln"></span><span class="tc">портфолио</span></div>
+<!-- ===== WORK / PROJECTS ===== -->
+<section id="work">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="ghost" aria-hidden="true">134</span>
-      <div class="hl"><span class="kick">доказательство, не слова</span><h2>Я знаю <span class="x">звук</span></h2></div>
-      <div class="sec-no nw">production</div>
+      <span class="ghost" aria-hidden="true">WORK</span>
+      <div class="hl"><span class="kick">что я строю</span><h2>Системы, а&nbsp;не&nbsp;<span class="x">картинки</span></h2></div>
+      <div class="sec-no nw">9 проектов в&nbsp;деле</div>
     </div>
     <div class="bento">
-      <div class="cell c3 reveal"><div class="glow"></div>
-        <span class="lbl">консистентность громкости</span>
-        <div class="viz-gauge">
-          <div class="gauge">
-            <svg width="128" height="128" viewBox="0 0 128 128"><circle cx="64" cy="64" r="56" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="8"/><circle id="gring" cx="64" cy="64" r="56" fill="none" stroke="url(#gg)" stroke-width="8" stroke-linecap="round" stroke-dasharray="352" stroke-dashoffset="352"/><defs><linearGradient id="gg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#34d3ee"/><stop offset="1" stop-color="#5b78ff"/></linearGradient></defs></svg>
-            <div class="val"><b class="tnum">0,09</b><s>dB разброс</s></div>
-          </div>
-          <p style="flex:1;min-width:160px">Все треки звучат одинаково громко — не дёргаешь ручку громкости между ними. Десятые доли децибела по&nbsp;всему каталогу. Лейбл-уровень.</p>
+
+      <!-- Контент-завод — флагман -->
+      <div class="cell c6 tall reveal"><div class="glow"></div>
+        <div class="thumb"><img src="assets/media/factory-ui.png" alt="Интерфейс контент-завода" loading="lazy"></div>
+        <span class="lbl">флагман · продукт под ключ</span>
+        <h3>Контент-завод <span class="x">под ключ</span></h3>
+        <p>Автономная инфраструктура: кидаешь исходник&nbsp;— pipeline сам генерит обложки и&nbsp;описания, мастерит звук и&nbsp;видео, публикует по&nbsp;расписанию в&nbsp;TG / Boosty / Bandcamp / YouTube и&nbsp;ведёт архив с&nbsp;историей. Один раз настроил&nbsp;— работает без&nbsp;тебя.</p>
+        <div class="chips">
+          <span class="chip on">START — 100к</span>
+          <span class="chip on">STUDIO — 200к ⭐</span>
+          <span class="chip on">PRO — 300к</span>
+          <span class="chip">+ поддержка 30–80к/мес</span>
+        </div>
+        <div class="priceline">
+          <b>6–8&nbsp;ч <span class="x">→</span> 25&nbsp;мин</b><span>на полный релиз · 12+&nbsp;часов/нед экономии</span>
         </div>
       </div>
+
+      <!-- MIRA VALE HUB -->
       <div class="cell c3 reveal"><div class="glow"></div>
-        <span class="lbl">объём каталога</span>
-        <div class="bign tnum"><span class="x" id="cnt">134</span> трека</div>
-        <div class="matrix" id="matrix" aria-hidden="true"></div>
-        <p>прогнаны через один воспроизводимый конвейер на&nbsp;ffmpeg</p>
-      </div>
-      <div class="cell c3 reveal"><div class="glow"></div>
-        <span class="lbl">громкость релиза</span>
-        <h3 class="tnum" style="font-size:1.5rem">−12&nbsp;LUFS</h3>
-        <div class="meter"><i></i><span class="mk"></span></div>
-        <p>Как у&nbsp;релизов на&nbsp;стримингах — не&nbsp;тише и&nbsp;не&nbsp;в&nbsp;кашу.</p>
-      </div>
-      <div class="cell c3 reveal"><div class="glow"></div>
-        <span class="lbl">инструмент</span>
+        <span class="lbl">⬢ продакшн-комбайн</span>
         <h3>MIRA&nbsp;VALE&nbsp;HUB</h3>
-        <p>Свой комбайн для продакшна: генерация, мастеринг, дистрибуция. Я&nbsp;строю инструменты, а&nbsp;не&nbsp;обещаю.</p>
+        <p>Десктоп-хаб для музыки: enrich метаданных, двупроходный мастеринг, генерация обложек, дедуп MP3→FLAC, авто-публикация. v14.97 в&nbsp;продакшене, 327&nbsp;записей в&nbsp;архиве, «настройка хитов» и&nbsp;робот-наводчик внутри.</p>
+        <div class="chips"><span class="chip on">desktop</span><span class="chip">Suno</span><span class="chip">ffmpeg</span></div>
       </div>
+
+      <!-- О-Смысл боты -->
+      <div class="cell c3 reveal"><div class="glow"></div>
+        <span class="lbl">◐ telegram-продакшн</span>
+        <h3>О-Смысл · боты</h3>
+        <p>Психологический бренд CROWBAH в&nbsp;Telegram: голос-в-текст, картинка-в-текст, нарезчик контента на&nbsp;4&nbsp;части, движок приёма оплат. Полный продакшн ботов&nbsp;— от&nbsp;сценария до&nbsp;автономного канала.</p>
+        <div class="chips"><span class="chip on">bots</span><span class="chip">psy</span><span class="chip">payments</span></div>
+      </div>
+
+      <!-- BAH.DGTL животные -->
+      <div class="cell c3 reveal"><div class="glow"></div>
+        <div class="thumb"><img src="assets/media/bahdgtl-web.jpg" alt="BAH.DGTL — генеративный визуал" loading="lazy"></div>
+        <span class="lbl">✦ генеративный визуал</span>
+        <h3>BAH.DGTL</h3>
+        <p>Сюр-животные, поп-арт, ретрейс лягушек, смешные ролики&nbsp;— мини-каналы визуала и&nbsp;генеративные эксперименты со&nbsp;своим почерком: контраст ч/б и&nbsp;неона.</p>
+        <div class="chips"><span class="chip on">gen-art</span><span class="chip">reels</span></div>
+      </div>
+
+      <!-- RZN Wake -->
+      <div class="cell c3 reveal"><div class="glow"></div>
+        <div class="thumb"><img src="assets/media/rzn-banner.png" alt="RZN Wake Park — брендинг" loading="lazy"></div>
+        <span class="lbl">▲ бренд-система</span>
+        <h3>RZN Wake Park</h3>
+        <p>Оформление под&nbsp;ключ: логотип, фирстиль, карусель постов, баннеры, брендбук. Тёмная база&nbsp;+ неон-жёлтый акцент. Полный пакет для&nbsp;Instagram-присутствия парка.</p>
+        <div class="chips"><span class="chip on">brand</span><span class="chip">smm</span></div>
+      </div>
+
+      <!-- profilactica-dent -->
+      <div class="cell c2 reveal"><div class="glow"></div>
+        <span class="lbl">＋ сайт + воронка</span>
+        <h3>profilactica&#8209;dent</h3>
+        <p>Стоматология: лендинг, контент, автоматизация записи. Медицинская ниша под&nbsp;ключ.</p>
+      </div>
+
+      <!-- Приложения -->
+      <div class="cell c2 reveal"><div class="glow"></div>
+        <span class="lbl">▣ разработка</span>
+        <h3>Приложения</h3>
+        <p>Линейка инструментов и&nbsp;утилит&nbsp;— от&nbsp;идеи до&nbsp;рабочего продукта. Дев-логи и&nbsp;апдейты&nbsp;— тоже контент.</p>
+      </div>
+
+      <!-- Клип / визуал-истории -->
+      <div class="cell c2 reveal"><div class="glow"></div>
+        <div class="thumb"><img src="assets/media/drama-scene-web.jpg" alt="Кадр из визуальной истории" loading="lazy"></div>
+        <span class="lbl">▶ кино / клип</span>
+        <h3>Клип «Noid» + визуал-истории</h3>
+        <p>Снятый ролик для&nbsp;независимой группы и&nbsp;серия кино-кадров с&nbsp;глитч-эстетикой и&nbsp;нарративом.</p>
+      </div>
+
     </div>
   </div>
 </section>
 
-<div class="divider"><span class="tc">03</span><span class="ln"></span><span class="tc">продукт</span></div>
-<!-- ПРОДУКТ -->
-<section id="products">
+<div class="divider"><span class="tc">04</span><span class="ln"></span><span class="tc">доказательство</span></div>
+<!-- ===== NUMBERS / INFOGRAPHIC ===== -->
+<section id="numbers">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="ghost" aria-hidden="true">990</span>
-      <div class="hl"><span class="kick">продукт 01 — гайд</span><h2>Релизный звук <span class="x">за&nbsp;вечер</span></h2></div>
-      <div class="sec-no nw">suno → master</div>
+      <span class="ghost" aria-hidden="true">327</span>
+      <div class="hl"><span class="kick">цифры, не слова</span><h2>Конвейер в&nbsp;<span class="x">числах</span></h2></div>
+      <div class="sec-no nw">контент-завод</div>
     </div>
-    <div class="bento">
-      <div class="cell c4 reveal"><div class="glow"></div>
-        <span class="lbl">что внутри</span>
-        <h3>5 команд + карта дистрибуции</h3>
-        <p>Копируешь команду — получаешь результат. Сырой трек из&nbsp;Suno превращается в&nbsp;релизный звук без&nbsp;FL&nbsp;Studio и&nbsp;без месяца сведения. Проходит модерацию площадок 2026&nbsp;года без&nbsp;AI-бана.</p>
-        <ul class="feat">
-          <li><b>01</b><span>5 готовых команд: чистка, «кристаллик», громкость, FLAC + MP3&nbsp;320</span></li>
-          <li><b>02</b><span>Файл «всё в&nbsp;одном» — перетащил трек, получил мастер</span></li>
-          <li><b>03</b><span>Карта дистрибуции 2026 + чек-лист загрузки на&nbsp;площадки</span></li>
-        </ul>
+    <div class="viz reveal">
+      <div class="vcell">
+        <span class="lbl">скорость релиза</span>
+        <div class="flow"><span class="from">6–8 ч</span><span class="ar">→</span><span class="to">25 мин</span></div>
+        <p>Полный цикл релиза&nbsp;— от&nbsp;трека до&nbsp;публикации с&nbsp;обложкой и&nbsp;мастером.</p>
       </div>
-      <div class="cell c2 reveal"><div class="glow"></div>
-        <span class="lbl">старт продаж</span>
-        <div class="price-old tnum">1290&nbsp;₽</div>
-        <div class="price tnum">990<small>&nbsp;₽</small></div>
-        <p class="mono" style="font-size:.72rem;color:var(--magenta);margin:8px 0 0">первым 30 покупателям</p>
-        <div class="buy-facts">
-          <div><span class="ok">✓</span> Оплата картой&nbsp;РФ</div>
-          <div><span class="ok">✓</span> Доступ сразу после оплаты</div>
-          <div><span class="ok">✓</span> Windows&nbsp;.bat + Mac/Linux&nbsp;.sh</div>
-          <div><span class="ok">✓</span> Не&nbsp;подойдёт — верну деньги</div>
+      <div class="vcell">
+        <span class="lbl">экономия времени</span>
+        <div class="gauge">
+          <svg width="118" height="118" viewBox="0 0 118 118"><circle cx="59" cy="59" r="51" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="8"/><circle id="gring" cx="59" cy="59" r="51" fill="none" stroke="url(#gg)" stroke-width="8" stroke-linecap="round" stroke-dasharray="320" stroke-dashoffset="320"/><defs><linearGradient id="gg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#34d3ee"/><stop offset="1" stop-color="#5b78ff"/></linearGradient></defs></svg>
+          <div class="val"><b class="tnum">12+</b><s>ч/нед</s></div>
         </div>
-        <a class="btn btn-pri" href="https://t.me/sergeybah?text=%D0%A5%D0%BE%D1%87%D1%83%20%D0%B3%D0%B0%D0%B9%D0%B4%20%C2%AB%D0%A0%D0%B5%D0%BB%D0%B8%D0%B7%D0%BD%D1%8B%D0%B9%20%D0%B7%D0%B2%D1%83%D0%BA%C2%BB%20%D0%B7%D0%B0%20990" target="_blank" rel="noopener" style="width:100%;justify-content:center">Забрать в&nbsp;Telegram <span class="ar">→</span></a>
-        <p class="mono muted" style="font-size:.68rem;margin-top:10px;text-align:center">откроется Telegram с&nbsp;готовым сообщением</p>
+      </div>
+      <div class="vcell">
+        <span class="lbl">объём архива</span>
+        <div class="bign tnum"><span class="x" id="cnt327">0</span></div>
+        <div class="matrix" id="matrix" aria-hidden="true"></div>
+        <p>записей с&nbsp;историей, версиями и&nbsp;статистикой публикаций.</p>
+      </div>
+      <div class="vcell">
+        <span class="lbl">каналов публикации</span>
+        <div class="bign tnum"><span class="x" id="cnt4">0</span></div>
+        <p>TG, Boosty, Bandcamp, YouTube&nbsp;— по&nbsp;расписанию, автономно.</p>
       </div>
     </div>
   </div>
 </section>
 
-<div class="divider"><span class="tc">04</span><span class="ln"></span><span class="tc">студия</span></div>
-<!-- СТУДИЯ -->
-<section id="studio">
+<div class="divider"><span class="tc">05</span><span class="ln"></span><span class="tc">обучение</span></div>
+<!-- ===== COURSES ===== -->
+<section id="learn">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="ghost" aria-hidden="true">STUDIO</span>
-      <div class="hl"><span class="kick">CROWBAH Studio</span><h2>Сайты, визуал, <span class="x">автоматизация</span></h2></div>
-      <div class="sec-no nw">под ключ</div>
+      <span class="ghost" aria-hidden="true">LEARN</span>
+      <div class="hl"><span class="kick">передаю систему</span><h2>Научу <span class="x">так&nbsp;же</span></h2></div>
+      <div class="sec-no nw">от навыка до конвейера</div>
     </div>
-    <div class="bento">
-      <div class="cell c4 reveal"><div class="glow"></div>
-        <span class="lbl">кейс</span>
-        <h3>RZN&nbsp;Wake&nbsp;Park</h3>
-        <p>Полная бренд-система: <span class="nw">9&nbsp;постов</span>, карусель, лого-локап, фирстиль, сетка и&nbsp;типографика. Тёмная база + неон-акцент. Рыночная вилка работы — <span class="nw">35–56&nbsp;тыс.&nbsp;₽</span>.</p>
-        <p class="mono muted" style="font-size:.74rem;margin-top:12px">студия одного оператора: AI-инструменты + ручная сборка</p>
+    <div class="course">
+      <div class="cell reveal"><div class="glow"></div>
+        <span class="lbl">курс 01 · пилот</span>
+        <h3>Промпт-инжиниринг</h3>
+        <p>Как разговаривать с&nbsp;нейросетями, чтобы получать результат, а&nbsp;не&nbsp;шум. От&nbsp;структуры промпта до&nbsp;повторяемого качества.</p>
+        <div class="priceline"><b>скоро</b><span class="soon-tag">пилот готов</span></div>
       </div>
-      <div class="cell c2 reveal"><div class="glow"></div>
-        <span class="lbl">прайс</span>
-        <div class="svc-row"><span>Лендинг</span><b>45–60&nbsp;тыс.&nbsp;₽</b></div>
-        <div class="svc-row"><span>Сайт под&nbsp;ключ</span><b>90–130&nbsp;тыс.&nbsp;₽</b></div>
-        <div class="svc-row"><span>Лого + айдентика</span><b>15–30&nbsp;тыс.&nbsp;₽</b></div>
-        <div class="svc-row"><span>Соцсети-пак</span><b>30–50&nbsp;тыс.&nbsp;₽</b></div>
-        <div class="svc-row"><span>Боты, автоматизация</span><b>от&nbsp;35&nbsp;тыс.&nbsp;₽</b></div>
+      <div class="cell reveal"><div class="glow"></div>
+        <span class="lbl">курс 02</span>
+        <h3>Свой контент-завод</h3>
+        <p>Собрать автономный конвейер под&nbsp;свою нишу: генерация, мастеринг, упаковка, авто-публикация. Пошагово.</p>
+        <div class="priceline"><b>скоро</b><span class="soon-tag">в работе</span></div>
       </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"><span class="tc">05</span><span class="ln"></span><span class="tc">путь</span></div>
-<!-- ЛЕСТНИЦА -->
-<section id="ladder">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="hl"><span class="kick">куда это растёт</span><h2>От гайда до <span class="x">своего конвейера</span></h2></div>
-      <div class="sec-no nw">roadmap</div>
-    </div>
-    <div class="bento">
-      <div class="cell c2 reveal" style="border-color:rgba(52,211,238,.4)"><div class="glow"></div>
-        <div class="rung-h"><span class="st">01 — сейчас</span></div>
-        <h3 style="margin-top:10px">Гайды</h3><p>Релизный звук, дистрибуция. <span class="nw">990–1290&nbsp;₽</span>. Забрал, применил, услышал разницу.</p>
-      </div>
-      <div class="cell c2 soon reveal"><div class="glow"></div>
-        <div class="rung-h"><span class="st">02 — скоро</span><span class="tag-soon">скоро</span></div>
-        <h3 style="margin-top:10px">Курсы</h3><p>Полная сборка: звук, сведение, упаковка релиза, продакшн с&nbsp;нуля.</p>
-      </div>
-      <div class="cell c2 soon reveal"><div class="glow"></div>
-        <div class="rung-h"><span class="st">03 — премиум</span><span class="tag-soon">под ключ</span></div>
-        <h3 style="margin-top:10px">Свой Хаб</h3><p>Готовый комбайн под твой проект. Переписываю под&nbsp;тебя — дальше работает сам.</p>
+      <div class="cell reveal"><div class="glow"></div>
+        <span class="lbl">премиум · под ключ</span>
+        <h3>Хаб под тебя</h3>
+        <p>Не&nbsp;хочешь учиться&nbsp;— соберу комбайн под&nbsp;твой проект и&nbsp;передам с&nbsp;документацией. Дальше работает сам.</p>
+        <div class="priceline"><b>по запросу</b><span class="soon-tag">studio</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
+<!-- ===== CONTACT / ENGINE ===== -->
 <section id="contact">
   <div class="wrap">
     <div class="cta-card reveal">
-      <h2>Звук и&nbsp;системы — <span class="x">сегодня</span></h2>
-      <p>Пиши в&nbsp;Telegram — пришлю комплект и&nbsp;реквизиты. Оплата картой, доступ сразу после оплаты.</p>
+      <h2>Собрать тебе <span class="x">такую же</span> систему?</h2>
+      <p>Напиши&nbsp;— разберём нишу, тон и&nbsp;задачи, отвечу что реально сделать и&nbsp;за&nbsp;сколько. Без&nbsp;воды и&nbsp;давления.</p>
       <div class="cta-actions">
-        <a class="btn btn-pri" href="https://t.me/sergeybah" target="_blank" rel="noopener">Написать в&nbsp;Telegram <span class="ar">→</span></a>
+        <a class="btn btn-pri" href="https://t.me/bah_dgtl" target="_blank" rel="noopener">Написать в&nbsp;Telegram <span class="ar">→</span></a>
         <a class="btn btn-gh" href="mailto:bahead@mail.ru">bahead@mail.ru</a>
       </div>
-      <p class="pay-note">Оплата картой&nbsp;РФ · <b>«я оплатил» → доступ сразу</b> · скоро — автоприём через бота</p>
+      <div class="engine">
+        <a href="https://t.me/miravale_mv" target="_blank" rel="noopener"><span class="d"></span> Mira Vale</a>
+        <a href="https://music.yandex.ru/album/41451981" target="_blank" rel="noopener"><span class="d"></span> Mirror — Я.Музыка</a>
+        <a href="https://t.me/bah_dgtl" target="_blank" rel="noopener"><span class="d"></span> @bah_dgtl</a>
+        <a href="mailto:bahead@mail.ru"><span class="d"></span> почта</a>
+      </div>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap foot-in">
-    <span>© 2026 <b style="color:var(--text)">CROWBAH</b> — звук и&nbsp;системы под&nbsp;ключ</span>
-    <span><a href="https://t.me/sergeybah" target="_blank" rel="noopener">Telegram</a> · <a href="mailto:bahead@mail.ru">bahead@mail.ru</a></span>
-    <span>самозанятый · оплата картой&nbsp;РФ</span>
+    <span>© 2026 <b style="color:var(--text)">CROWBAH</b> — AI-продакшн студия полного цикла</span>
+    <span><a href="https://t.me/bah_dgtl" target="_blank" rel="noopener">Telegram</a> · <a href="mailto:bahead@mail.ru">bahead@mail.ru</a></span>
+    <span>ИП · нейросети под задачу</span>
   </div>
 </footer>
 
@@ -434,33 +511,74 @@ footer{border-top:1px solid var(--line);padding:34px 0 56px;color:var(--dim);pos
   var d=document, html=d.documentElement, W=window;
   html.classList.add('js');
   var rm=W.matchMedia&&W.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  // waveform bars
-  var wave=d.getElementById('wave');
-  if(wave){var n=64,h='';for(var i=0;i<n;i++){var dl=(Math.sin(i*0.5)*0.5+0.5)*1.5;h+='<i style="animation-delay:-'+dl.toFixed(2)+'s"></i>';}wave.innerHTML=h;}
-  // 134 matrix
+
+  // matrix 327 -> show 144 dots as density grid
   var mx=d.getElementById('matrix');
-  if(mx){var m='';for(var j=0;j<134;j++){var op=(0.18+ (j%7)*0.11).toFixed(2);m+='<i style="opacity:'+op+'"></i>';}mx.innerHTML=m;}
+  if(mx){var m='';for(var j=0;j<144;j++){var op=(0.10+(j%9)*0.09).toFixed(2);m+='<i style="opacity:'+op+'"></i>';}mx.innerHTML=m;}
+
   // burger
   var b=d.getElementById('burger'), nl=d.getElementById('navlinks');
   if(b&&nl){b.addEventListener('click',function(){var o=nl.classList.toggle('open');b.setAttribute('aria-expanded',o?'true':'false');});nl.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){nl.classList.remove('open');});});}
-  // scroll progress + parallax
-  var bar=d.getElementById('bar'), raven=d.getElementById('raven');
-  function onScroll(){var s=W.pageYOffset,doch=d.body.scrollHeight-W.innerHeight;if(bar)bar.style.width=(doch>0?(s/doch*100):0)+'%';if(raven&&!rm)raven.style.transform='translateY('+(s*0.06)+'px)';}
-  W.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  // nav solid on scroll
+  var nav=d.getElementById('nav');
+
+  // ===== hero scroll-scrub video =====
+  var vid=d.getElementById('herovid'), stage=d.getElementById('hero'),
+      hc=d.getElementById('herocontent'), raven=d.getElementById('raven');
+  var vidReady=false, vDur=0;
+  if(vid){
+    vid.addEventListener('loadedmetadata',function(){vDur=vid.duration||0;vidReady=true;});
+    // kick decoding so seeking is smooth
+    var p=vid.play(); if(p&&p.then){p.then(function(){vid.pause();vid.currentTime=0;}).catch(function(){});}
+  }
+
+  var bar=d.getElementById('bar');
+  var targetT=0, curT=0, raf=null;
+  function render(){
+    // smooth seek toward target
+    if(vidReady && Math.abs(targetT-curT)>0.01){
+      curT+=(targetT-curT)*0.18;
+      try{vid.currentTime=curT;}catch(e){}
+      raf=requestAnimationFrame(render);
+    } else { raf=null; }
+  }
+  function onScroll(){
+    var s=W.pageYOffset||d.documentElement.scrollTop;
+    var doch=d.body.scrollHeight-W.innerHeight;
+    if(bar)bar.style.width=(doch>0?(s/doch*100):0)+'%';
+    if(nav)nav.classList.toggle('solid', s>40);
+    if(stage){
+      var range=stage.offsetHeight-W.innerHeight;
+      var p=range>0?Math.min(Math.max(s/range,0),1):0;
+      if(vidReady && !rm){targetT=p*Math.max(vDur-0.05,0); if(!raf)raf=requestAnimationFrame(render);}
+      if(hc){ // fade + lift hero text as you scrub
+        var f=Math.max(1-p*1.35,0);
+        hc.style.opacity=f; hc.style.transform='translateY('+(p*-40)+'px)';
+      }
+      if(raven&&!rm){raven.style.transform='translateY('+(p*60)+'px) scale('+(1+p*0.06)+')';}
+    }
+  }
+  W.addEventListener('scroll',onScroll,{passive:true});
+  W.addEventListener('resize',onScroll,{passive:true});
+  onScroll();
+
   // cursor spotlight on cells
-  d.querySelectorAll('.cell').forEach(function(c){c.addEventListener('mousemove',function(e){var r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px');});});
-  // reveal + gauge + count-up
-  var io;
-  function tween(el,to,suf){var t0=null,dur=1100;function step(ts){if(!t0)t0=ts;var p=Math.min((ts-t0)/dur,1);var e=1-Math.pow(1-p,3);el.textContent=Math.round(to*e)+(suf||'');if(p<1)requestAnimationFrame(step);}requestAnimationFrame(step);}
+  d.querySelectorAll('.cell').forEach(function(c){c.addEventListener('mousemove',function(e){var r=c.getBoundingClientRect();c.style.setProperty('--gx',(e.clientX-r.left)+'px');c.style.setProperty('--gy',(e.clientY-r.top)+'px');});});
+
+  // reveal + count-up
+  function tween(el,to,suf){var t0=null,dur=1200;function step(ts){if(!t0)t0=ts;var p=Math.min((ts-t0)/dur,1);var e=1-Math.pow(1-p,3);el.textContent=Math.round(to*e)+(suf||'');if(p<1)requestAnimationFrame(step);}requestAnimationFrame(step);}
+  function countIn(el){if(el.dataset.done)return;el.dataset.done=1;var to=+(el.getAttribute('data-c')||el.id&&el.id.replace(/\D/g,'')||0);if(el.id==='cnt327')to=327;if(el.id==='cnt4')to=4;if(rm){el.textContent=to;}else tween(el,to);}
   if('IntersectionObserver' in W){
-    io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');
-      if(e.target.querySelector&&e.target.querySelector('#gring')){var g=e.target.querySelector('#gring');g.style.transition='stroke-dashoffset 1.4s '+'cubic-bezier(.16,1,.3,1)';g.style.strokeDashoffset=rm?'14':'14';}
-      var cnt=e.target.querySelector&&e.target.querySelector('#cnt');if(cnt&&!cnt.dataset.done){cnt.dataset.done=1;if(rm){cnt.textContent='134';}else tween(cnt,134);}
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');
+      var g=e.target.querySelector&&e.target.querySelector('#gring');if(g){g.style.transition='stroke-dashoffset 1.5s cubic-bezier(.16,1,.3,1)';g.style.strokeDashoffset=rm?'70':'70';}
+      e.target.querySelectorAll&&e.target.querySelectorAll('[data-c],#cnt327,#cnt4').forEach(countIn);
       io.unobserve(e.target);}});},{rootMargin:'0px 0px -8% 0px',threshold:.08});
     d.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
   } else { d.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');}); }
+
   // scroll-spy
-  var secs=[].slice.call(d.querySelectorAll('section[id]')), links=[].slice.call(d.querySelectorAll('.nav-links a'));
+  var secs=[].slice.call(d.querySelectorAll('section[id],header[id]')), links=[].slice.call(d.querySelectorAll('.nav-links a'));
   if('IntersectionObserver' in W && secs.length){var spy=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id);});}});},{rootMargin:'-45% 0px -50% 0px'});secs.forEach(function(s){spy.observe(s);});}
 })();
 </script>
